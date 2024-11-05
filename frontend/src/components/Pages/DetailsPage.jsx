@@ -1,6 +1,7 @@
 import '../Styles/DetailsPage.css';
 import EditPlume from '../../assets/EditPlume.svg';
 import useFetchSingleProduct from '../../hooks/useFetchSingleProduct';
+import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 
 const DetailsPage = () => {
    const { loading, productData, id } = useFetchSingleProduct();
@@ -9,7 +10,11 @@ const DetailsPage = () => {
 
       return (
          <div className='product-box'>
-            <img className='product-image' alt='product' src={productData.image} />
+            <img className='product-image' alt='product' src={productData} 
+                onError={(e) => {
+                e.target.onerror = null; // Prevent infinite loop if the fallback image also fails
+                e.target.src = SikaSäkissä; // Set the fallback image
+                 }} />
             <div className='product-details'>
                <p className="product-name">{productData.name}</p>
                <p className="product-price">${productData.price.toFixed(2)}</p>  

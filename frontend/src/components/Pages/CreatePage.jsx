@@ -81,8 +81,8 @@ setNewProduct({
       <button  id='create-button' className='create-button' 
       onClick={handleAddProduct}>Submit</button>
          
-       {/* Preview Modal */}
-       {showPreview && (
+      
+       {/* {showPreview && (
         <div className="modal-overlay" onClick={closePreview}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h3>Product Preview</h3>
@@ -97,7 +97,7 @@ setNewProduct({
             <button className="close-button" onClick={closePreview}>Close</button>
             </div>
       </div>
-      )}
+      )} */}
        <a className='link-to-home' href="http://localhost:5000">See all products</a>
       </div>
       </div>
