@@ -10,7 +10,7 @@ const DetailsPage = () => {
 
       return (
          <div className='product-box'>
-            <img className='product-image' alt='product' src={productData} 
+            <img className='product-image' alt='product' src={productData.image} 
                 onError={(e) => {
                 e.target.onerror = null; // Prevent infinite loop if the fallback image also fails
                 e.target.src = SikaSäkissä; // Set the fallback image
