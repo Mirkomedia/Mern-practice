@@ -1,0 +1,130 @@
+body {
+    background-color: gray;
+    color: antiquewhite;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.homepage {
+    padding: 2em;
+    text-align: center;
+}
+
+h1 a {
+    color: sandybrown;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+h1 a:hover {
+    color: sandybrown;
+}
+
+/* Grid layout for products */
+.product-grid {
+    display: grid;
+    gap: 2em;
+    padding: 2em 0;
+}
+
+@media (min-width: 1200px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on large screens */
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on medium screens */
+    }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+    }
+}
+
+@media (max-width: 599px) {
+    .product-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile screens */
+    }
+}
+
+.product-box {
+    display: relative !important;
+    background-color: hsl(207, 26%, 17%);
+    color: antiquewhite;
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-box:hover {
+    transform: scale(1.05);
+}
+
+.product-image {
+    width: 100%;
+    max-width: 200px; /* Ensures image fits inside box */
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    object-fit: cover; /* Ensures image scales properly */
+}
+
+.product-details {
+    padding-top: 1em;
+    border-top: 1px solid hsl(235, 20%, 30%);
+}
+
+.product-name, .product-price {
+    margin: 0.5em 0;
+    font-size: 1.1em;
+}
+
+.product-name {
+    font-weight: bold;
+}
+
+.product-price {
+    color: hsl(100, 35%, 45%);
+}
+
+/* Ensure grid-container layout compatibility */
+.grid-container {
+    display: grid;
+    grid-template-rows: 1fr;
+    gap: 2em;
+}
+.header-box{
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay to enhance readability */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Adds shadow for depth */
+}
+/* Default link styling */
+a {
+    color: sandybrown; /* Customize the link color */
+    text-decoration: none; /* Removes underline */
+    font-weight: bold; /* Adds a bold effect */
+    transition: color 0.3s ease; /* Smooth transition effect */
+}
+
+/* Hover effect */
+a:hover {
+    color: sandybrown; /* Change color on hover */
+    text-decoration: underline; /* Optional: add underline on hover */
+}
+
+/* Visited links (optional) */
+a:visited {
+    color: sandybrown; /* Customize the color for visited links */
+}
+
+/* Active link styling (when clicked) */
+a:active {
+    color: sandybrown;
+}

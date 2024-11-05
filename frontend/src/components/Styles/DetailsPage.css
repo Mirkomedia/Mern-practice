@@ -1,0 +1,44 @@
+.product-container{
+    position:relative;
+    justify-items: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay to enhance readability */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Adds shadow for depth */
+}
+.product-box {
+    position: relative; /* Anchor the icon position relative to this box */
+    background-color: hsl(207, 26%, 17%);
+    color: antiquewhite;
+    width: 200px; /* Adjust width as needed */
+    padding: 1em;
+    border-radius: 8px;
+    overflow: hidden; /* Prevents content from overflowing */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.product-details {
+    padding-bottom: 2em; /* Leave space for the icon if needed */
+}
+
+.icon-container {
+    position: absolute;
+    bottom: 10px; /* Position icon at the bottom-right within product-box */
+    right: 10px;
+    width: 24px;
+    height: 24px;
+}
+
+.edit-plume {
+    width: 100%; /* Ensures the icon takes up the full icon-container */
+    height: 100%;
+    fill: antiquewhite; /* Color for the SVG icon */
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Add a smooth scale effect on hover */
+}
+
+.edit-plume:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
