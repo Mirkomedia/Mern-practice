@@ -1,4 +1,4 @@
-Hello this is my first MERN stack application. It is a simple marketplace(bazaar) where users can submit their products to be displayed in a catalogue of wonderful creations.
+Hello this is my first MERN stack application. It is a simple marketplace(bazaar) where users can submit their products to be displayed in a catalogue of wonderful creations and crude humor.
 
 About the Project
 
