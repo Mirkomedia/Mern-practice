@@ -2,6 +2,7 @@ import '../Styles/DetailsPage.css';
 import EditPlume from '../../assets/EditPlume.svg';
 import useFetchSingleProduct from '../../hooks/useFetchSingleProduct';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
+import { Link, Route, Routes  } from 'react-router-dom';
 
 const DetailsPage = () => {
    const { loading, productData, id } = useFetchSingleProduct();
@@ -21,7 +22,10 @@ const DetailsPage = () => {
                <p className='product-description'>{productData.description}</p>            
             </div>
             <div className='icon-container'>
-       <img className='edit-plume' src={EditPlume} alt='editIcon'  height={24} width={24} />
+            < Link to={`/edit/${id}`}>  
+            <img className='edit-plume' src={EditPlume} alt='editIcon'  height={24} width={24} />
+            </Link>
+
           </div>
          </div>
       );
@@ -37,6 +41,7 @@ const DetailsPage = () => {
        <div>
          {renderProductInformation()}
          </div>
+         < Link to={`/`}>Back to catalogue  </Link>
       </div>
    );
 };
