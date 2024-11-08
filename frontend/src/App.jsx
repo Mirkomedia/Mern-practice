@@ -1,7 +1,7 @@
 import CreatePage from './components/Pages/CreatePage';
 import HomePage from './components/Pages/HomePage';
 import DetailsPage from './components/Pages/DetailsPage';
-import { Route, Routes, Link, } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import EditPage from './components/Pages/EditPage';
 
 
