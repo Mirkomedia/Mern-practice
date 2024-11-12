@@ -1,5 +1,5 @@
 import '../Styles/HomePage.css';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { Link } from 'react-router-dom';
 import useFetchProducts from '../../hooks/useFetchProducts';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
@@ -9,7 +9,7 @@ import InsiteLink from '../InsiteLink';
 import SearchInput from '../SearchInput';
 import FilteredProducts from '../FilteredProducts';
 
-const HomePage = ({ loggedIn, setLoggedin }) => {
+const HomePage = ({ loggedIn }) => {
    const [filtered, setFiltered] = useState(false)
    const { loading, productData } = useFetchProducts();
    const [searchedProduct, setSearchedProduct] = useState('')
