@@ -1,5 +1,6 @@
 import '../Styles/CreatePage.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import InputField from '../InputField'
 const CreatePage = () => {
   
@@ -97,7 +98,7 @@ setNewProduct({
             </div>
       </div>
       )} */}
-       <a className='link-to-home' href="http://localhost:5000">See all products</a>
+       <Link className='link-to-home' to={`${import.meta.env.VITE_API_BASE_URL}`}>See all products</Link>
       </div>
       </div>
     
