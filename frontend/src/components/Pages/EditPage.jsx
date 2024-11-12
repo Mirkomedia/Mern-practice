@@ -3,7 +3,7 @@ import useFetchSingleProduct from '../../hooks/useFetchSingleProduct';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 import { useState, useEffect } from 'react'
 import InputField from '../InputField'
-import { Link, Route, Routes  } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 const DetailsPage = () => {
     
      
@@ -42,7 +42,7 @@ const DetailsPage = () => {
 
    const handleEditProduct = async () =>{
     try{
-    const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`, {
        method: "PUT",
        headers: {
           'Content-Type' : 'application/json'

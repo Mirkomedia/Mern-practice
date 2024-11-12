@@ -2,7 +2,7 @@ import '../Styles/DetailsPage.css';
 import EditPlume from '../../assets/EditPlume.svg';
 import useFetchSingleProduct from '../../hooks/useFetchSingleProduct';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
-import { Link, Route, Routes  } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 const DetailsPage = () => {
    const { loading, productData, id } = useFetchSingleProduct();

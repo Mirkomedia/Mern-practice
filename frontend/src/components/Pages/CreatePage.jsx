@@ -1,8 +1,6 @@
-import React from 'react'
 import '../Styles/CreatePage.css'
 import { useState, useEffect } from 'react'
 import InputField from '../InputField'
-import EditPlume from '../../assets/EditPlume.svg';
 const CreatePage = () => {
   
  const [newProduct, setNewProduct] = useState({
@@ -19,7 +17,7 @@ const closePreview = () => {
 }
 const handleAddProduct = async () =>{
    try{
-   const response = await fetch("http://localhost:5000/api/products/", {
+   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products/`, {
       method: "POST",
       headers: {
          'Content-Type' : 'application/json'
