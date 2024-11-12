@@ -73,6 +73,7 @@ setNewProduct({
         placeholder="Image URL"
         name="image"
       />
+      
       <textarea value={newProduct.description} onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
       className='description-box' placeholder='Write a descirption about your product'
       rows="5" maxLength={500}/>

@@ -1,10 +1,18 @@
 import '../Styles/HomePage.css';
-import { Link, Route, Routes  } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import useFetchProducts from '../../hooks/useFetchProducts';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
+import PlusIcon from '../../assets/PlusIcon.svg'
+import ProfileIcon from '../../assets/ProfileIcon.svg'
+import InsiteLink from '../InsiteLink';
+import SearchInput from '../SearchInput';
+import FilteredProducts from '../FilteredProducts';
 
-const HomePage = () => {
+const HomePage = ({ loggedIn, setLoggedin }) => {
+   const [filtered, setFiltered] = useState(false)
    const { loading, productData } = useFetchProducts();
+   const [searchedProduct, setSearchedProduct] = useState('')
    const renderProductInformation = () => {
       return (
          productData.map((product) => (
@@ -30,16 +38,36 @@ const HomePage = () => {
    return (
       <div className="homepage">
          <div className='header-box'>
+            <div className='header-links-container'>
          <h1>
             Bazaar 
          </h1>
-         <a  href="http://localhost:5000/create">Create your own product!</a>
+         <InsiteLink 
+         name= {loggedIn === false ? 'Login' : 'View profile'}
+         image={ProfileIcon}
+         linkTo='/login'
+         />
+         <InsiteLink
+         name='Create your own product'
+         image={PlusIcon}
+         linkTo='/create'/>
          </div>
-         <div className='product-grid'>
+         <SearchInput searchedProduct={searchedProduct}
+          setSearchedProduct={setSearchedProduct}
+          setFiltered={setFiltered}/>
+         </div>
+         {filtered === false &&
+          <div className='product-grid'>
             {renderProductInformation()}
-         </div>
+         </div>}
+         {filtered === true && 
+         <div className='product-grid'>
+           <FilteredProducts
+           searchedProduct={searchedProduct}
+           />
+         </div>}
       </div>
-   );
-}
+                );}
+      
 
 export default HomePage;

@@ -3,7 +3,6 @@ import useFetchSingleProduct from '../../hooks/useFetchSingleProduct';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 import { useState, useEffect } from 'react'
 import InputField from '../InputField'
-import EditPlume from '../../assets/EditPlume.svg';
 import { Link, Route, Routes  } from 'react-router-dom';
 const DetailsPage = () => {
     

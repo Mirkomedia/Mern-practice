@@ -100,10 +100,20 @@ h1 a:hover {
     gap: 2em;
 }
 .header-box{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
     background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay to enhance readability */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Adds shadow for depth */
+}
+.header-links-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px;
+    align-items: center;
+    text-align: center;
+    margin: auto;
 }
 /* Default link styling */
 a {
@@ -111,6 +121,8 @@ a {
     text-decoration: none; /* Removes underline */
     font-weight: bold; /* Adds a bold effect */
     transition: color 0.3s ease; /* Smooth transition effect */
+    text-align: center;
+    align-items: center;
 }
 
 /* Hover effect */
@@ -127,4 +139,46 @@ a:visited {
 /* Active link styling (when clicked) */
 a:active {
     color: sandybrown;
+}
+.icon{
+    fill: antiquewhite; /* Color for the SVG icon */
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Add a smooth scale effect on hover */
+}
+
+.icon:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center items inside the search bar */
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px; /* Set a maximum width for the search bar container */
+    width: 100%; /* This will ensure it adjusts to the max-width */
+    padding: 10px;
+    background-color: #2e3b4e; /* Example background to make it stand out */
+    border-radius: 10px;
+}
+
+.search-products {
+    padding: 10px;
+    border: 1px solid hsl(235, 20%, 23%);
+    width: 100%;
+    max-width: 800px; /* Sets a maximum width for larger screens */
+    border-radius: 5px;
+    display: inline-block;
+    background-color: hsl(235, 24%, 19%);
+    color: hsl(234, 39%, 85%);
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Adds a soft shadow for depth */
+}
+
+.flex-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin:auto;
+    width: 100%
 }
