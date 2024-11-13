@@ -12,6 +12,8 @@ Product Details Page: Each product has its own details page with more informatio
 
 Responsive Design: The UI is responsive and adapts to different screen sizes.
 
+Feedback box: At the bottom of catalogue there is a box to give feedback about the project
+
 Installation
 
 Install dev dependencies (npm install) 
@@ -22,7 +24,7 @@ PORT=5000(or whatever suits you)
 
 Future Improvements
 
-User Authentication: Add user login and registration for a personalized experience. //partly done, authentication needed and secure password hashing
+User Authentication: Add user login and registration for a personalized experience. //partly done,passwords are hashed and sent safely to the database
 
 Search and Filter: Allow users to search for specific products or filter by categories. //name specific search implemented, will add tags and categories later
 
