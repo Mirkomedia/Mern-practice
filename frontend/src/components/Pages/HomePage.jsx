@@ -9,7 +9,7 @@ import InsiteLink from '../InsiteLink';
 import SearchInput from '../SearchInput';
 import FilteredProducts from '../FilteredProducts';
 
-const HomePage = ({ loggedIn }) => {
+const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
    const [filtered, setFiltered] = useState(false)
    const { loading, productData } = useFetchProducts();
    const [searchedProduct, setSearchedProduct] = useState('')
@@ -45,7 +45,7 @@ const HomePage = ({ loggedIn }) => {
          <InsiteLink 
          name= {loggedIn === false ? 'Login' : 'View profile'}
          image={ProfileIcon}
-         linkTo='/login'
+         linkTo={loggedIn === false ? '/login' : `/profile/${currentUser._id}`}
          />
          <InsiteLink
          name='Create your own product'

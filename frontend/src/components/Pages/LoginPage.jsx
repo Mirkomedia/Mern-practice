@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import InputField from '../InputField'
 import CreateUser from '../../assets/CreateUser.svg'
 import InsiteLink from '../InsiteLink'
-const LoginPage = ({ setLoggedIn, loggedIn }) => {
+import bcrypt from 'bcryptjs'
+const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
 
 const [username, setUsername] = useState('')
 const [password, setPassword] = useState('')
@@ -11,24 +12,42 @@ const navigate = useNavigate()
 
 const handleLogIn = async () => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/`,{
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/`, {
       method: 'GET',
-      headers: {  'Content-Type' : 'application/json'
-    }} )
-    const data = await response.json()
+      headers: { 'Content-Type': 'application/json' }
+    });
+    
+    const data = await response.json();
     const users = data.data || [];
-    console.log(users)
-    const loggingUser = users.filter((user) => { return user.name === username})
-    console.log(loggingUser)
-    if(loggingUser[0].password === password){
-      navigate('/')
-      setLoggedIn(true)
+    console.log(users);
+
+    // Find the user matching the entered username
+    const loggingUser = users.find(user => user.name === username);
+
+    if (!loggingUser) {
+      console.log('User not found');
+      window.alert('User not found');
+      return;
     }
 
+    // Compare entered password with stored hashed password
+    const match = await bcrypt.compare(password, loggingUser.password);
+    
+    if (match) {
+      console.log('Correct password, logged in');
+      window.alert('Signed in successfully');
+      navigate('/');
+      setLoggedIn(true);
+      console.log(loggingUser)
+      setCurrentUser(loggingUser)
+    } else {
+      console.log('Incorrect password, speak friend and enter');
+      window.alert('Incorrect password');
+    }
   } catch (error) {
-    console.log('Error logging in')
+    console.error('Error logging in:', error);
   }
-}
+};
   return (
     <div>
       <div className='grid-container'>

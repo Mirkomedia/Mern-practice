@@ -7,21 +7,24 @@ import EditPage from './components/Pages/EditPage';
 import LoginPage from './components/Pages/LoginPage';
 import SearchResultsPage from './components/Pages/SearchResultsPage';
 import CreateUserPage from './components/Pages/CreateUserPage';
+import ProfilePage from './components/Pages/ProfilePage';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState({})
 
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePage loggedIn={loggedIn} setLoggedIn={setLoggedIn}  />} />
-        <Route path="/login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn}  />} />
-        <Route path="/search" element={<SearchResultsPage />} />
-        <Route path ="/create" element={<CreatePage />} />
-        <Route path ="/create/user" element={<CreateUserPage />} />
-        <Route path ='/details/:id' element={<DetailsPage />} />
-        <Route path ='/edit/:id' element={<EditPage />} />
-      </Routes>
+        <Route path="/" element={<HomePage loggedIn={loggedIn} setLoggedIn={setLoggedIn}  currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+        <Route path="/login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser}  />} />
+        <Route path="/search" element={<SearchResultsPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+        <Route path ="/create" element={<CreatePage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+        <Route path ="/create/user" element={<CreateUserPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+        <Route path ='/details/:id' element={<DetailsPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+        <Route path ='/profile/:id' element={<ProfilePage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+        <Route path ='/edit/:id' element={<EditPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+      </Routes>  
       </div>
   )
 }
