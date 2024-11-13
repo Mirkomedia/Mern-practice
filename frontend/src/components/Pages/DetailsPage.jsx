@@ -41,7 +41,7 @@ const DetailsPage = () => {
        <div>
          {renderProductInformation()}
          </div>
-         < Link to={`/`}>Back to catalogue  </Link>
+         < Link className='back-catalogue' to={`/`}>Back to catalogue  </Link>
       </div>
    );
 };

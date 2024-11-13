@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { connectDB } from './config/db.js';
 import productRoutes from "./routes/product.route.js";
 import userRoutes from "./routes/user.route.js";
+import palauteRoutes from "./routes/palaute.route.js"
 import path from "path";
 import session from "express-session";
 
@@ -25,6 +26,10 @@ if(process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, "/frontend/dist")));
 }
 app.use("/api/users", userRoutes )
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname, "/frontend/dist")));
+}
+app.use("/api/palaute", palauteRoutes )
 if(process.env.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, "/frontend/dist")));
 }

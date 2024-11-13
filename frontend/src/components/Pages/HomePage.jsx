@@ -8,6 +8,7 @@ import ProfileIcon from '../../assets/ProfileIcon.svg'
 import InsiteLink from '../InsiteLink';
 import SearchInput from '../SearchInput';
 import FilteredProducts from '../FilteredProducts';
+import PalauteBoksi from '../PalauteBoksi';
 
 const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
    const [filtered, setFiltered] = useState(false)
@@ -66,6 +67,7 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
            searchedProduct={searchedProduct}
            />
          </div>}
+        <PalauteBoksi/>
       </div>
                 );}
       
