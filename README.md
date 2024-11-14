@@ -2,6 +2,8 @@ About the Project
 
 Bazaar is a marketplace app built with the MERN (MongoDB, Express, React, Node.js) stack. This application allows users to add products with images, descriptions, and prices, which are then displayed in a catalog. The purpose of this project is to practice and demonstrate skills in full-stack development using MERN technologies.
 
+Currently hosted at https://mern-practice-0lqg.onrender.com/ 
+
 Features
 
 Product Submission: Users can add new products to the marketplace with details name, price, image and description.
@@ -11,6 +13,8 @@ Catalog Display: Products are displayed in a visually appealing catalog layout.
 Product Details Page: Each product has its own details page with more information.
 
 Responsive Design: The UI is responsive and adapts to different screen sizes.
+
+Feedback box: At the bottom of catalogue there is a box to give feedback about the project
 
 Installation
 
@@ -22,7 +26,7 @@ PORT=5000(or whatever suits you)
 
 Future Improvements
 
-User Authentication: Add user login and registration for a personalized experience. //partly done, authentication needed and secure password hashing
+User Authentication: Add user login and registration for a personalized experience. //partly done,passwords are hashed and sent safely to the database
 
 Search and Filter: Allow users to search for specific products or filter by categories. //name specific search implemented, will add tags and categories later
 
