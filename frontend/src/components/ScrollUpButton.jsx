@@ -17,8 +17,8 @@ const ScrollUpButton = () => {
             padding: '10px 15px',
             fontSize: '16px',
             borderRadius: '5px',
-            backgroundColor: '#007bff',
-            color: 'white',
+            backgroundColor: 'hsl(207, 26%, 17%)',
+            color: 'antiquewhite',
             border: 'none',
             cursor: 'pointer'
           }}

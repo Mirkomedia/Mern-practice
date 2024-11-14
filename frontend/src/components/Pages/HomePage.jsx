@@ -7,8 +7,10 @@ import PlusIcon from '../../assets/PlusIcon.svg'
 import ProfileIcon from '../../assets/ProfileIcon.svg'
 import InsiteLink from '../InsiteLink';
 import SearchInput from '../SearchInput';
-import FilteredProducts from '../FilteredProducts';
 import PalauteBoksi from '../PalauteBoksi';
+import ScrollUpButton from '../ScrollUpButton';
+import SearchResultsPage from './SearchResultsPage';
+
 
 const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
    const [filtered, setFiltered] = useState(false)
@@ -57,16 +59,17 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
           setSearchedProduct={setSearchedProduct}
           setFiltered={setFiltered}/>
          </div>
-         {filtered === false &&
+         {filtered === false ?
           <div className='product-grid'>
             {renderProductInformation()}
-         </div>}
-         {filtered === true && 
+         </div> : 
+         filtered === true && 
          <div className='product-grid'>
-           <FilteredProducts
+           <SearchResultsPage
            searchedProduct={searchedProduct}
            />
          </div>}
+         <ScrollUpButton/>
         <PalauteBoksi/>
       </div>
                 );}

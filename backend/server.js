@@ -15,7 +15,7 @@ app.use(express.json()); //allows us to accept JSON data in the req.body
 app.use(session({
     secret: 'yourSecretKey', //env variable for prodcution
     resave: false,
-    saveUninitialized: true, 
+    saveUninitialized: false, 
     cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }))
 

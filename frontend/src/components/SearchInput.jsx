@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState} from 'react'
 import SearchIcon from '../assets/SearchIcon.svg'
-import { Navigate, useNavigate } from 'react-router-dom';
-import useFetchProducts from '../hooks/useFetchProducts';
+
 const SearchInput = ({ searchedProduct, setSearchedProduct, setFiltered}) => {
 
 
