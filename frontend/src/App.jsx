@@ -8,6 +8,7 @@ import LoginPage from './components/Pages/LoginPage';
 import SearchResultsPage from './components/Pages/SearchResultsPage';
 import CreateUserPage from './components/Pages/CreateUserPage';
 import ProfilePage from './components/Pages/ProfilePage';
+import PalautePage from './components/Pages/PalautePage';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage loggedIn={loggedIn} setLoggedIn={setLoggedIn}  currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path="/login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser}  />} />
+        <Route path="/palaute" element={<PalautePage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path="/search" element={<SearchResultsPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path ="/create" element={<CreatePage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path ="/create/user" element={<CreateUserPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />

@@ -19,3 +19,14 @@ export const createPalaute = async (req, res) => {
       res.status(500).json({ success: false, message: "Server Error" });
     }
   };
+  //GET All palaute
+  //GET
+ export const getPalaute =  async (req, res) =>{
+    try {
+        const palaute = await Palaute.find({});
+        res.status(200).json({success:true, data: palaute});
+    } catch (error) {
+        console.log("error in fetching Palaute");
+        res.status(500).json({success:false, message: "Server Error"});
+    }
+};

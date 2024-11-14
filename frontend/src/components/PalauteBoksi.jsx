@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
+import InsiteLink from './InsiteLink';
 
 const PalauteBoksi = () => {
   
@@ -44,8 +46,10 @@ palaute: ""
      
       <button  id='create-button' className='create-button' 
       onClick={handleAddPalaute}>Submit</button>
-    
-     
+       
+     <InsiteLink
+     name='view feedback'
+     linkTo={'/palaute'}/>
       </div>
       </div>
     

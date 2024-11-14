@@ -37,7 +37,6 @@ const SearchResultsPage = ({ searchedProduct }) => {
 
    return (
        <div>
-           SearchResultsPage
            <div className='product-grid'>
                {renderFilteredProductInformation()}
            </div>
