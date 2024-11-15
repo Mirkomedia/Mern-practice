@@ -3,41 +3,65 @@ import dotenv from "dotenv";
 import { connectDB } from './config/db.js';
 import productRoutes from "./routes/product.route.js";
 import userRoutes from "./routes/user.route.js";
-import palauteRoutes from "./routes/palaute.route.js"
+import palauteRoutes from "./routes/palaute.route.js";
 import path from "path";
 import session from "express-session";
+import connectMongoDBSession from 'connect-mongodb-session';
 
 dotenv.config();
 
+// Initialize MongoDBStore with the session library
+const MongoDBStore = connectMongoDBSession(session);
+
 const app = express();
-const PORT = process.env.PORT || 5000
-app.use(express.json()); //allows us to accept JSON data in the req.body
-app.use(session({
-    secret: 'yourSecretKey', //env variable for prodcution
-    resave: false,
-    saveUninitialized: false, 
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }
-}))
+const PORT = process.env.PORT || 5000;
+
+app.use(express.json()); // Allows us to accept JSON data in the req.body
+
+// Configure the MongoDB session store
+const store = new MongoDBStore({
+  uri: `mongodb+srv://mirkoweibel18:jdk2WPhpUif64fQG@cluster0.fn7vk.mongodb.net/products?retryWrites=true&w=majority&appName=Cluster0`,
+  collection: 'mySessions',
+});
+
+store.on('error', (error) => {
+  console.error('Session store error:', error);
+});
+
+// Configure session middleware
+const sessionMiddleware = session({
+  secret: process.env.SESSION_SECRET, // Replace with a secure secret key
+  resave: false, // Prevent unnecessary session resaving
+  saveUninitialized: false, // Don't save empty sessions
+  store: store,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    secure: false, // Set to true in production (requires HTTPS)
+    httpOnly: true,
+    sameSite: 'None'
+  },
+});
+
+app.use(sessionMiddleware);
 
 const __dirname = path.resolve();
 
-app.use("/api/products", productRoutes )
-if(process.env.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname, "/frontend/dist")));
-}
-app.use("/api/users", userRoutes )
-if(process.env.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname, "/frontend/dist")));
-}
-app.use("/api/palaute", palauteRoutes )
-if(process.env.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname, "/frontend/dist")));
-}
-app.get("*", (req, res) =>{
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-})
-app.listen(PORT, () =>{
-    connectDB();
-    console.log("Server started at http://localhost:" + PORT);
-});
+// Routes setup
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/palaute", palauteRoutes);
 
+// Serve frontend files in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  });
+}
+
+// Start server
+app.listen(PORT, () => {
+  connectDB();
+  console.log("Server started at http://localhost:" + PORT);
+});
