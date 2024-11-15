@@ -188,10 +188,8 @@ a:active {
     margin:auto;
     width: 100%
 }
-.back-catalogue{
-    margin: 20px 0px 35px 0px !important
-}
+
 .detail-grid{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.3fr 1fr;
 }

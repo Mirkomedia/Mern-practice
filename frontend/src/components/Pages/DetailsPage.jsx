@@ -2,6 +2,7 @@ import '../Styles/DetailsPage.css';
 import EditPlume from '../../assets/EditPlume.svg';
 import useFetchSingleProduct from '../../hooks/useFetchSingleProduct';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
+import ArrowLeft  from '../../assets/ArrowLeft.png';
 import { Link} from 'react-router-dom';
 
 const DetailsPage = () => {
@@ -40,7 +41,7 @@ const DetailsPage = () => {
          <h1>Details for Product ID: {id}</h1>
        <div className='detail-grid'>
        < Link className='back-catalogue' to={`/`}
-         >Back to catalogue  </Link>
+         ><img className='back-arrow icon' src={ArrowLeft} width={60} height={60}/></Link>
          {renderProductInformation()}
          </div> 
       </div>
