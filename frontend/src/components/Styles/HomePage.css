@@ -65,6 +65,7 @@ h1 a:hover {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     text-align: center;
     transition: transform 0.3s ease;
+    
 }
 
 .product-box:hover {
@@ -188,5 +189,9 @@ a:active {
     width: 100%
 }
 .back-catalogue{
-    margin-top: 15px;
+    margin: 20px 0px 35px 0px !important
+}
+.detail-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

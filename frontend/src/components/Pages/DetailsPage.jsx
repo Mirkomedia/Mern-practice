@@ -38,10 +38,11 @@ const DetailsPage = () => {
    return (
       <div  className='product-container'>
          <h1>Details for Product ID: {id}</h1>
-       <div>
+       <div className='detail-grid'>
+       < Link className='back-catalogue' to={`/`}
+         >Back to catalogue  </Link>
          {renderProductInformation()}
-         </div>
-         < Link className='back-catalogue' to={`/`}>Back to catalogue  </Link>
+         </div> 
       </div>
    );
 };

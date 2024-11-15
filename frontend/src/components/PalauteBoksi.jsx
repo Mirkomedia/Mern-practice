@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import InsiteLink from './InsiteLink';
+import FeedbackIcon from '../assets/FeedbackIcon.svg'
 
 const PalauteBoksi = () => {
   
@@ -48,6 +49,7 @@ palaute: ""
       onClick={handleAddPalaute}>Submit</button>
        
      <InsiteLink
+     image={FeedbackIcon}
      name='view feedback'
      linkTo={'/palaute'}/>
       </div>

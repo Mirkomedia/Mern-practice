@@ -2,7 +2,7 @@ import useSearchProducts from '../../hooks/useSearchProducts';
 import { Link } from 'react-router-dom';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 
-const SearchResultsPage = ({ searchedProduct }) => {
+const SearchResultsPage = ({ searchedProduct, setFiltered, filtered }) => {
    const { loading, productData } = useSearchProducts();
 
    const renderFilteredProductInformation = () => {

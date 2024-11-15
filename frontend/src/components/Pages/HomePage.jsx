@@ -58,6 +58,7 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
          <SearchInput searchedProduct={searchedProduct}
           setSearchedProduct={setSearchedProduct}
           setFiltered={setFiltered}/>
+          {filtered=== true ? <p onClick={() => setFiltered(false)}>Clear filters</p> : <p></p>}
          </div>
          {filtered === false ?
           <div className='product-grid'>
@@ -66,7 +67,7 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
          filtered === true && 
          <div className='product-grid'>
            <SearchResultsPage
-           searchedProduct={searchedProduct}
+           searchedProduct={searchedProduct} filtered={filtered} setFiltered={setFiltered}
            />
          </div>}
          <ScrollUpButton/>
