@@ -28,6 +28,14 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
                <div className='product-details'>
                <Link to={`/details/${product._id}`}>{product.name}</Link>
                   <p className="product-price">${product.price.toFixed(2)}</p>
+                  <p>
+                      {product.description
+                         ? product.description.length > 50
+                         ? `${product.description.slice(0, 50)}...`
+                         : product.description
+                         : ''}
+                  </p>
+
                </div>
             </div>
          ))
