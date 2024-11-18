@@ -8,6 +8,7 @@ import path from "path";
 import session from "express-session";
 import connectMongoDBSession from 'connect-mongodb-session';
 import sessionRoutes from "./routes/session.route.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -18,6 +19,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json()); // Allows us to accept JSON data in the req.body
+
+app.use(
+  cors({
+    origin: "https://mern-practice-0lqg.onrender.com", // Your frontend's domain
+    credentials: true, // Allow cookies to be sent
+  })
+);
 
 // Configure the MongoDB session store
 const store = new MongoDBStore({
@@ -39,7 +47,7 @@ const sessionMiddleware = session({
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     secure: true, // Set to true in production (requires HTTPS)
     httpOnly: true,
-    sameSite: 'Lax'
+    sameSite: 'none'
   },
 });
 
