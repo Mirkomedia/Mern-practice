@@ -1,6 +1,7 @@
 import '../Styles/DetailsPage.css';
 import useFetchSingleUser from '../../hooks/useFetchSingleUser';
 import { Link } from 'react-router-dom'; 
+import ArrowLeft  from '../../assets/ArrowLeft.png';
 const ProfilePage = () => {
   const { loading, UserData, id } = useFetchSingleUser();
 
@@ -28,10 +29,11 @@ const ProfilePage = () => {
   return (
     <div className='product-container'>
       <h1>Details for User ID: {id}</h1>
-      <div>
+      <div className='detail-grid'>
+      < Link className='back-catalogue' to={`/`}
+         ><img className='back-arrow icon' src={ArrowLeft} width={60} height={60}/></Link>
         {renderUserInformation()}
-      </div>
-      <Link to={`/`}>Back to catalogue</Link>
+       </div>
     </div>
   );
 };

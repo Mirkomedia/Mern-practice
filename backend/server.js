@@ -7,6 +7,7 @@ import palauteRoutes from "./routes/palaute.route.js";
 import path from "path";
 import session from "express-session";
 import connectMongoDBSession from 'connect-mongodb-session';
+import sessionRoutes from "./routes/session.route.js";
 
 dotenv.config();
 
@@ -38,7 +39,7 @@ const sessionMiddleware = session({
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     secure: false, // Set to true in production (requires HTTPS)
     httpOnly: true,
-    sameSite: 'None'
+    sameSite: 'Lax'
   },
 });
 
@@ -50,6 +51,7 @@ const __dirname = path.resolve();
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/palaute", palauteRoutes);
+app.use("/api/session", sessionRoutes)
 
 // Serve frontend files in production
 if (process.env.NODE_ENV === "production") {

@@ -9,10 +9,11 @@ import SearchResultsPage from './components/Pages/SearchResultsPage';
 import CreateUserPage from './components/Pages/CreateUserPage';
 import ProfilePage from './components/Pages/ProfilePage';
 import PalautePage from './components/Pages/PalautePage';
+import useFetchSession from './hooks/useFetchSession';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [currentUser, setCurrentUser] = useState({})
+  const { loggedIn, currentUser, setLoggedIn, setCurrentUser } = useFetchSession();
+
 
   return (
     <div>

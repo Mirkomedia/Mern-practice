@@ -11,6 +11,28 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const handleLogIn = () => {
+    axios.post('/api/users/login', { username, password }, { withCredentials: true })
+      .then((result) => {
+        console.log("Response data:", result.data); // Debugging
+        if (result.data.message === "Logged in successfully") {
+          window.alert('Signed in successfully');
+          setCurrentUser(result.data.user);
+          setLoggedIn(true);
+          navigate("/"); // Navigate to the home page
+        } else {
+          window.alert("You are not registered, please sign up");
+          navigate("/create/user"); // Navigate to the sign-up page
+        }
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+        window.alert("Login failed, please try again.");
+      });
+  };
+  
+
+  /* 
   const handleLogIn = async () => {
     try {
       // Use the configured axios instance to make the GET request
@@ -47,7 +69,7 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
       console.error('Error logging in:', error);
     }
   };
-
+ */
   return (
     <div>
       <div className='grid-container'>
