@@ -15,17 +15,22 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
     axios.post('/api/users/login', { username, password }, { withCredentials: true })
       .then((result) => {
         console.log("Response data:", result.data); // Debugging
+  
+        // Check if the response contains the expected message
         if (result.data.message === "Logged in successfully") {
           window.alert('Signed in successfully');
+          console.log(result.data.user)
           setCurrentUser(result.data.user);
           setLoggedIn(true);
           navigate("/"); // Navigate to the home page
         } else {
+          // Handle unexpected response
           window.alert("You are not registered, please sign up");
           navigate("/create/user"); // Navigate to the sign-up page
         }
       })
       .catch((error) => {
+        // Log full error details for debugging
         console.error("Login error:", error);
         window.alert("Login failed, please try again.");
       });
