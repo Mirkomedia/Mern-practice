@@ -10,9 +10,14 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  
   const handleLogIn = async () => {
     try {
-      const response = await axios.post('/api/users/login', { username, password }, { withCredentials: true });
+      const response = await axios.post(
+        '/api/users/login',
+        { username, password },
+        { withCredentials: true }
+      );
   
       console.log("Response data:", response.data);
   
@@ -22,15 +27,20 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
         setLoggedIn(true);
         navigate("/"); // Navigate to the home page
       } else {
+        // Handling unexpected response format or unsuccessful login attempt
         window.alert("You are not registered, please sign up");
         navigate("/create/user"); // Navigate to the sign-up page
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error details:", error); // Log the full error object for debugging
+  
+      // Log different parts of the error object to see the structure clearly
+      if (error.response) {
+        console.error("Error response:", error.response);
+      }
       window.alert("Login failed, please try again.");
     }
   };
-  
   
 
   /* 
