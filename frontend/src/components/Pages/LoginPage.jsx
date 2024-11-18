@@ -10,31 +10,27 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
-  const handleLogIn = () => {
-    axios.post('/api/users/login', { username, password }, { withCredentials: true })
-      .then((result) => {
-        console.log("Response data:", result.data); // Debugging
+  const handleLogIn = async () => {
+    try {
+      const response = await axios.post('/api/users/login', { username, password }, { withCredentials: true });
   
-        // Check if the response contains the expected message
-        if (result.data.message === "Logged in successfully") {
-          window.alert('Signed in successfully');
-          console.log(result.data.user)
-          setCurrentUser(result.data.user);
-          setLoggedIn(true);
-          navigate("/"); // Navigate to the home page
-        } else {
-          // Handle unexpected response
-          window.alert("You are not registered, please sign up");
-          navigate("/create/user"); // Navigate to the sign-up page
-        }
-      })
-      .catch((error) => {
-        // Log full error details for debugging
-        console.error("Login error:", error);
-        window.alert("Login failed, please try again.");
-      });
+      console.log("Response data:", response.data);
+  
+      if (response.data.message === "Logged in successfully") {
+        window.alert('Signed in successfully');
+        setCurrentUser(response.data.user);
+        setLoggedIn(true);
+        navigate("/"); // Navigate to the home page
+      } else {
+        window.alert("You are not registered, please sign up");
+        navigate("/create/user"); // Navigate to the sign-up page
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      window.alert("Login failed, please try again.");
+    }
   };
+  
   
 
   /* 
