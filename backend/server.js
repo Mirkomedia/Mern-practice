@@ -37,7 +37,7 @@ const sessionMiddleware = session({
   store: store,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24, // 1 day
-    secure: false, // Set to true in production (requires HTTPS)
+    secure: true, // Set to true in production (requires HTTPS)
     httpOnly: true,
     sameSite: 'Lax'
   },
