@@ -2,7 +2,6 @@ import CreatePage from './components/Pages/CreatePage';
 import HomePage from './components/Pages/HomePage';
 import DetailsPage from './components/Pages/DetailsPage';
 import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
 import EditPage from './components/Pages/EditPage';
 import LoginPage from './components/Pages/LoginPage';
 import SearchResultsPage from './components/Pages/SearchResultsPage';

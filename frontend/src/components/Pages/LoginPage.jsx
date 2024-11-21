@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import InputField from '../InputField'
 import CreateUser from '../../assets/CreateUser.svg'
 import InsiteLink from '../InsiteLink'
-import bcrypt from 'bcryptjs'
 import axios from '../../Utils/axiosInstance';
 
-const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
+const LoginPage = ({ setLoggedIn, setCurrentUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
