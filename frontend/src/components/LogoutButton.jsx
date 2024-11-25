@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../Utils/axiosInstance";
+import axios from "../Utils/axiosInstance";
 
 const Header = ({ setLoggedIn, setCurrentUser }) => {
   const navigate = useNavigate();
