@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../Utils/axiosInstance";
+import LogoutIcon from '../assets/LogoutIcon.svg'
 
 const Header = ({ setLoggedIn, setCurrentUser }) => {
   const navigate = useNavigate();
   const logoutUser = async (setLoggedIn, setCurrentUser) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/logout`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/logout`,
         {}, // Empty body for POST request
         { withCredentials: true }
       );
@@ -35,10 +36,9 @@ const Header = ({ setLoggedIn, setCurrentUser }) => {
 
   return (
 
-     <div>
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
+     <div onClick={handleLogout}>
+        <img src={LogoutIcon} alt="logoutIcon" />
+        <p><Logout></Logout></p>
     </div>
    
   );
