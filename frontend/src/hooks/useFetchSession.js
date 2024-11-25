@@ -1,12 +1,11 @@
-import axios from "axios"
 import { useState, useEffect } from "react";
+import axios from "axios";
 
+const useFetchSession = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
-const useFetchSession = () =>{
-
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
-useEffect(() => {
+  useEffect(() => {
     const fetchSession = async () => {
       try {
         const response = await axios.get("/api/session");
@@ -23,6 +22,8 @@ useEffect(() => {
 
     fetchSession();
   }, []);
-  return { loggedIn, currentUser };
-}
-export default useFetchSession
+
+  return { loggedIn, setLoggedIn, currentUser, setCurrentUser }; // Include all states and setters
+};
+
+export default useFetchSession;
