@@ -27,6 +27,7 @@ router.post("/login", async (req, res) => {
 
     // Set session data
     req.session.userId = user._id;
+    req.session.userName = user.name
     
     return res.status(200).json({ message: "Logged in successfully", user: user });
   } catch (error) {
@@ -34,7 +35,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-//logout route
+//logout
 router.post("/logout", (req, res) => {
   if (req.session) {
     // Destroy the session

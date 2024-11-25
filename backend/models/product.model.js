@@ -18,9 +18,8 @@ const productSchema = new mongoose.Schema({
         required: false
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Sting,
         required: false,
-        ref: 'User'
     }
 }, {
     timestamps: true

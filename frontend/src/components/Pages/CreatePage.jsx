@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom'
 import InputField from '../InputField'
 const CreatePage = () => {
   
+  const user = req.session?.user ? req.session.user.name : "Anonymous"; // Use session user's name, or fallback
  const [newProduct, setNewProduct] = useState({
   name: "",
   price: "",
   image: "",
-  description: ""
+  description: "",
+  user
  }); 
  const [showPreview, setShowPreview] = useState(false);
 

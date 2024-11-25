@@ -27,7 +27,7 @@ export const getProduct = async (req,res, next) =>{
        
     }
 };
-
+//Create a new product
 export const createProduct = async  (req, res) => {
     const product = req.body //user will send this data
 
@@ -35,7 +35,11 @@ export const createProduct = async  (req, res) => {
     return res.status(400).json({ success:false, message: "Please provide all fields" });
 };
 
-const newProduct = new Product(product);
+const userName = req.session?.user?.name || "Anonymous"; // Fallback to 'Anonymous' if not logged in
+const newProduct = new Product({
+    ...productData,
+    user: userName, // Include the user's name in the product
+});
 
 try{
     await newProduct.save();
