@@ -29,7 +29,7 @@ app.use(
 
 // Configure the MongoDB session store
 const store = new MongoDBStore({
-  uri: `mongodb+srv://mirkoweibel18:jdk2WPhpUif64fQG@cluster0.fn7vk.mongodb.net/products?retryWrites=true&w=majority&appName=Cluster0`,
+  uri: process.env.MONGO_URI,
   collection: 'mySessions',
 });
 
@@ -37,6 +37,16 @@ store.on('error', (error) => {
   console.error('Session store error:', error);
 });
 
+//debugging middleware, might delete later
+app.use((req, res, next) => {
+  res.setHeader("Set-Cookie", "HttpOnly; Secure; SameSite=None");
+  next();
+});
+app.use((req, res, next) => {
+  console.log("Cookies in response:", res.getHeaders()["set-cookie"]);
+  next();
+});
+app.set("trust proxy", 1);
 // Configure session middleware
 const sessionMiddleware = session({
   secret: process.env.SESSION_SECRET, // Replace with a secure secret key
