@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../Utils/axiosInstance";
 import LogoutIcon from '../assets/LogoutIcon.svg'
 
-const Header = ({ setLoggedIn, setCurrentUser }) => {
+const LogoutButton = ({ setLoggedIn, setCurrentUser }) => {
   const navigate = useNavigate();
   const logoutUser = async (setLoggedIn, setCurrentUser) => {
     try {
@@ -44,4 +44,4 @@ const Header = ({ setLoggedIn, setCurrentUser }) => {
   );
 };
 
-export default Header;
+export default LogoutButton;
