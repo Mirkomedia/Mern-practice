@@ -20,7 +20,7 @@ const SearchInput = ({ searchedProduct, setSearchedProduct, setFiltered}) => {
     }
   return (
     <div>
-     <div >
+     <div className='search-bar-wrapper'>
       <img src={SearchIcon} alt='search-icon'  height={24} width={24}  />
       <input className='search-products'
       placeholder='Search for products' 

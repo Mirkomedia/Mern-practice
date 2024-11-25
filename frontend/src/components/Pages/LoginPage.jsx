@@ -41,7 +41,10 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
       window.alert("Login failed, please try again.");
     }
   };
-  
+  const handleKeyDown = (event) =>{ 
+    if(event.key === 'Enter')
+    handleLogIn();
+}
   return (
     <div>
       <div className='grid-container'>
@@ -58,6 +61,7 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
           type="text"
           placeholder="Username"
           name="username"
+          
         />
         <InputField
           value={password}
@@ -65,6 +69,7 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
           type="password"  // Use 'password' type to hide input
           placeholder="Password"
           name="password"
+          onKeyDown={handleKeyDown} 
         />
         <button className='create-button' onClick={handleLogIn}>Login</button>
       </div>

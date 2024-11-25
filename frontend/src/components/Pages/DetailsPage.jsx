@@ -11,7 +11,7 @@ const DetailsPage = () => {
       if (!productData) return <p>Product not found.</p>;
 
       return (
-         <div className='product-box'>
+         <div className='product-detail-box'>
             <img className='product-image' alt='product' src={productData.image} 
                 onError={(e) => {
                 e.target.onerror = null; // Prevent infinite loop if the fallback image also fails
@@ -25,6 +25,7 @@ const DetailsPage = () => {
             <div className='icon-container'>
             < Link to={`/edit/${id}`}>  
             <img className='edit-plume' src={EditPlume} alt='editIcon'  height={24} width={24} />
+            Edit
             </Link>
 
           </div>

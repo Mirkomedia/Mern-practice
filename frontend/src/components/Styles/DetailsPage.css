@@ -7,11 +7,12 @@
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Adds shadow for depth */
 }
-.product-box {
+.product-detail-box {
     position: relative; /* Anchor the icon position relative to this box */
     background-color: hsl(207, 26%, 17%);
     color: antiquewhite;
-    width: 200px; /* Adjust width as needed */
+    width: inherit; /* Adjust width as needed */
+    max-width: 600px;
     padding: 1em;
     border-radius: 8px;
     overflow: hidden; /* Prevents content from overflowing */
@@ -25,10 +26,11 @@
 
 .icon-container {
     position: absolute;
-    bottom: 10px; /* Position icon at the bottom-right within product-box */
+    bottom: 20px; /* Position icon at the bottom-right within product-box */
     right: 10px;
     width: 24px;
     height: 24px;
+
 }
 
 .edit-plume {
