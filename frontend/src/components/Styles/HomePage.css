@@ -196,6 +196,7 @@ a:active {
 .logout{
     color:sandybrown ;
     display: inline-flex;
+    font-weight: bold;
     
 }
 .logout:hover{
