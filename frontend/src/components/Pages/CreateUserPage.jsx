@@ -17,23 +17,43 @@ const [newUser, setNewUser] = useState({
 const navigate = useNavigate();
 
 const handleAddUser = async () => {
-  if (!newUser.name || !newUser.email || !newUser.password) {
-    window.alert('Please fill in all required fields!');
-    return;
-  }
-
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/` || 'http://localhost:5000', newUser, {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
+    // Create the new user
+    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/`, newUser, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
 
-    console.log('User created successfully', response.data);
+    if (response.status !== 200) {
+      throw new Error(`Error: ${response.status}`);
+    }
 
-    // Use the created user data
-    const createdUser = response.data.data;
-    setCurrentUser(createdUser);
+    const createdUserData = response.data; // Assuming your API sends user data in response
+    console.log('User created successfully', createdUserData);
+    const userId = createdUserData._id; // Adjust based on your response structure
+    console.log(userId);
+
+    // Fetch the created user's details
+    const userResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`, {
+      withCredentials: true // Now this is fine because we're fetching user details after creation
+    });
+
+    if (userResponse.status !== 200) {
+      throw new Error('Error retrieving user data');
+    }
+
+    const userData = userResponse.data;
+    console.log('Fetched user data:', userData);
+
+    // Set the current user and update logged-in state
+    setCurrentUser(userData);
     setLoggedIn(true);
+    await axios.post(
+      '/api/users/login',
+      newUser.name, newUser.password ,
+      { withCredentials: true }
+    );
 
     // Notify and reset the form
     window.alert('User created');
@@ -42,13 +62,13 @@ const handleAddUser = async () => {
       email: "",
       phoneNumber: "",
       alternativeContact: "",
-      password: "",
+      password: ""
     });
 
-    navigate('/');
+    navigate('/'); // Redirect to another page, like the home page
   } catch (error) {
-    console.error('Error creating user:', error);
-    window.alert(error.response?.data?.message || 'Error creating user');
+    console.log('Error creating User:', error);
+    window.alert('Error creating User');
   }
 };
 

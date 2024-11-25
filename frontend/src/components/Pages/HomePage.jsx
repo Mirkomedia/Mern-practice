@@ -10,6 +10,7 @@ import SearchInput from '../SearchInput';
 import PalauteBoksi from '../PalauteBoksi';
 import ScrollUpButton from '../ScrollUpButton';
 import SearchResultsPage from './SearchResultsPage';
+import LogoutButton from '../LogoutButton' ; 
 
 
 const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
@@ -62,6 +63,7 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
          name='Create your own product'
          image={PlusIcon}
          linkTo='/create'/>
+         <LogoutButton/>
          </div>
          <SearchInput searchedProduct={searchedProduct}
           setSearchedProduct={setSearchedProduct}

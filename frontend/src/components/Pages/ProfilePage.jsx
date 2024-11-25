@@ -6,7 +6,7 @@ const ProfilePage = () => {
   const { loading, UserData, id } = useFetchSingleUser();
 
   const renderUserInformation = () => {
-    if (!UserData) return <p>User not found.</p>;
+    if (!UserData) return <p>User not found or you don't have the right o' you don't have the right</p>;
 
     return (
       <div className='product-box'>

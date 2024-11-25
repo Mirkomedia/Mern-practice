@@ -25,6 +25,7 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
         window.alert('Signed in successfully');
         setCurrentUser(response.data.user);
         setLoggedIn(true);
+        navigate('/')
       } else {
         // Handling unexpected response format or unsuccessful login attempt
         window.alert("You are not registered, please sign up");

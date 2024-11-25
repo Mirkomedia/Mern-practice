@@ -34,6 +34,29 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+//logout route
+router.post("/logout", (req, res) => {
+  if (req.session) {
+    // Destroy the session
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).json({ message: "Failed to log out" });
+      }
+      // Clear the cookie
+      res.clearCookie("connect.sid", {
+        path: "/",
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      });
+      return res.status(200).json({ message: "Logged out successfully" });
+    });
+  } else {
+    return res.status(400).json({ message: "No active session to log out from" });
+  }
+});
+
 
 // Protect other routes with `isAuthenticated` as needed
 router.get("/", isAuthenticated, getUsers);
