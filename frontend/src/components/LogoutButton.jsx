@@ -36,8 +36,8 @@ const Header = ({ setLoggedIn, setCurrentUser }) => {
 
   return (
 
-     <div onClick={handleLogout}>
-        <img src={LogoutIcon} alt="logoutIcon" />
+     <div className="logout" onClick={handleLogout}>
+        <img src={LogoutIcon} alt="logoutIcon" height={40} width={40}/>
         <p>logout</p>
     </div>
    

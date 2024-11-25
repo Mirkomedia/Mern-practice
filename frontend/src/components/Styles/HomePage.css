@@ -115,7 +115,7 @@ h1 a:hover {
 }
 .header-links-container{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 20px;
     align-items: center;
     text-align: center;
@@ -192,4 +192,15 @@ a:active {
 .detail-grid{
     display: grid;
     grid-template-columns: 0.3fr 1fr;
+}
+.logout{
+    color:sandybrown ;
+    display: inline-flex;
+    
+}
+.logout:hover{
+    transform: scale(1.1);
+    cursor: pointer ;
+    text-decoration: underline;
+   
 }
