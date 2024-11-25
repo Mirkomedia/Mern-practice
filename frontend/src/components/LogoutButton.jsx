@@ -8,7 +8,7 @@ const LogoutButton = ({ setLoggedIn, setCurrentUser }) => {
   const logoutUser = async (setLoggedIn, setCurrentUser) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/users/logout`,
+        `/api/users/logout`,
         {}, // Empty body for POST request
         { withCredentials: true }
       );

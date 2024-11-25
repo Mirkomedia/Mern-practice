@@ -59,7 +59,7 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
          image={ProfileIcon}
          linkTo={loggedIn === false ? '/login' : `/profile/${currentUser._id}`}
          />
-        {loggedIn === true && <LogoutButton/>}
+        {loggedIn === true && <LogoutButton setCurrentUser={setCurrentUser} setLoggedIn={setLoggedIn}/>}
          <InsiteLink
          name='Create a product'
          image={PlusIcon}
