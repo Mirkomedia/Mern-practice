@@ -1,7 +1,8 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import InputField from '../InputField'
+import axios from '../../Utils/axiosInstance';
 
 const CreateUserPage = ({ loggedIn, setLoggedIn, setCurrentUser, currentUser }) => {
 const [newUser, setNewUser] = useState({
@@ -16,43 +17,22 @@ const [newUser, setNewUser] = useState({
 const navigate = useNavigate();
 
 const handleAddUser = async () => {
+  if (!newUser.name || !newUser.email || !newUser.password) {
+    window.alert('Please fill in all required fields!');
+    return;
+  }
+
   try {
-    // Create the new user
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-        
-      },
-      body: JSON.stringify(newUser)
+    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/` || 'http://localhost:5000', newUser, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
     });
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
+    console.log('User created successfully', response.data);
 
-    const createdUserData = await response.json();
-    console.log('User created successfully', createdUserData);
-    const userId = createdUserData.data._id;
-    console.log(userId)
-    // Fetch the created user's details
-    const userResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-
-    if (!userResponse.ok) {
-      throw new Error('Error retrieving user data');
-    }
-
-    const userData = await userResponse.json();
-    console.log('Fetched user data:', userData.data);
-
-    // Set the current user and update logged-in state
-    setCurrentUser(userData.data);
-    console.log(currentUser)
+    // Use the created user data
+    const createdUser = response.data.data;
+    setCurrentUser(createdUser);
     setLoggedIn(true);
 
     // Notify and reset the form
@@ -62,15 +42,16 @@ const handleAddUser = async () => {
       email: "",
       phoneNumber: "",
       alternativeContact: "",
-      password: ""
+      password: "",
     });
 
     navigate('/');
   } catch (error) {
-    console.log('Error creating User:', error);
-    window.alert('Error creating User');
+    console.error('Error creating user:', error);
+    window.alert(error.response?.data?.message || 'Error creating user');
   }
 };
+
 
 
   return (
@@ -111,7 +92,7 @@ const handleAddUser = async () => {
        <InputField
         value={newUser.password}
         onChange={(e) => setNewUser({ ...newUser,  password: e.target.value })}
-        type="text"
+        type="password"
         placeholder="password"
         name="password"
       />

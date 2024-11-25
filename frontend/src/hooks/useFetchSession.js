@@ -8,7 +8,7 @@ const useFetchSession = () => {
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const response = await axios.get("/api/session");
+        const response = await axios.get("/api/session", { withCredentials: true });
         const { loggedIn, user } = response.data;
 
         setLoggedIn(loggedIn);
