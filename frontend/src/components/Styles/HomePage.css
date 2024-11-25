@@ -152,9 +152,6 @@ a:active {
     transition: transform 0.3s ease; /* Add a smooth scale effect on hover */
 }
 
-.icon:hover {
-    transform: scale(1.1); /* Slightly enlarge the icon on hover */
-}
 .search-bar {
     display: flex;
     align-items: center;
@@ -187,6 +184,9 @@ a:active {
     gap: 5px;
     margin:auto;
     width: 100%
+}
+.flex-wrapper:hover{
+    transform: scale(1.1);
 }
 
 .detail-grid{
