@@ -12,7 +12,7 @@ const CreatePage = () => {
   price: "",
   image: "",
   description: "",
-  user: user
+  user: ""
  }); 
  const [showPreview, setShowPreview] = useState(false);
 
@@ -40,7 +40,8 @@ setNewProduct({
   name: "",
   price: "",
   image: "",
-  description: ""
+  description: "",
+  user: user
  })
    }catch (error){
       console.log('Error creating product', error)
