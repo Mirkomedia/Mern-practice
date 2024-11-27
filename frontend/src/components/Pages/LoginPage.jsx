@@ -43,7 +43,7 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
   };
   const handleKeyDown = (event) =>{ 
     if(event.key === 'Enter')
-    handleLogIn();
+    handleLogIn;
 }
   return (
     <div>

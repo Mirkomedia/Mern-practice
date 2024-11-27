@@ -2,9 +2,11 @@ import '../Styles/CreatePage.css'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import InputField from '../InputField'
+import useFetchSession from '../../hooks/useFetchSession.js'
 const CreatePage = () => {
-  
-  const user = req.session?.user ? req.session.user.name : "Anonymous"; // Use session user's name, or fallback
+ 
+  const { loggedIn, currentUser, setLoggedIn, setCurrentUser } = useFetchSession();
+ const user = loggedIn ? currentUser.name : "Anonymous"; // Use session user's name, or fallback
  const [newProduct, setNewProduct] = useState({
   name: "",
   price: "",
@@ -14,6 +16,7 @@ const CreatePage = () => {
  }); 
  const [showPreview, setShowPreview] = useState(false);
 
+ console.log(currentUser)
 
 const closePreview = () => {
   setShowPreview(false); // Hide preview modal
