@@ -16,14 +16,11 @@ const CreatePage = () => {
  }); 
  const [showPreview, setShowPreview] = useState(false);
 
- console.log(currentUser)
- console.log(loggedIn)
-console.log(user)
-
 const closePreview = () => {
   setShowPreview(false); // Hide preview modal
 }
 const handleAddProduct = async () =>{
+  setNewProduct({...newProduct, user: user})
    try{
    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`, {
       method: "POST",
@@ -43,7 +40,7 @@ setNewProduct({
   price: "",
   image: "",
   description: "",
-  user: user
+  user: ""
  })
    }catch (error){
       console.log('Error creating product', error)
