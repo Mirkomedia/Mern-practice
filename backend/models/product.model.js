@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema({
         required: false
     },
     user: {
-        type: Sting,
+        type: String,
         required: false,
     }
 }, {
