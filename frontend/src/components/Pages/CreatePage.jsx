@@ -7,7 +7,7 @@ const CreatePage = () => {
  
   const { loggedIn, currentUser, setLoggedIn, setCurrentUser } = useFetchSession();
  const user = loggedIn ? currentUser.name : "Anonymous"; // Use session user's name, or fallback
- setNewProduct({...newProduct, user: user})
+ 
  const [newProduct, setNewProduct] = useState({
   name: "",
   price: "",
@@ -23,12 +23,13 @@ const closePreview = () => {
 const handleAddProduct = async () =>{
 
    try{
+    const productWithUser = { ...newProduct, user };
    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`, {
       method: "POST",
       headers: {
          'Content-Type' : 'application/json'
       },
-      body : JSON.stringify(newProduct) 
+      body : JSON.stringify(productWithUser) 
    })
    if(!response.ok){
    throw new Error(`Error: ${response.statusCode}`);
