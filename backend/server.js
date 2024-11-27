@@ -9,6 +9,7 @@ import session from "express-session";
 import connectMongoDBSession from 'connect-mongodb-session';
 import sessionRoutes from "./routes/session.route.js";
 import cors from "cors";
+import { rateLimit } from "express-rate-limit";
 
 dotenv.config();
 
@@ -20,6 +21,14 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json()); // Allows us to accept JSON data in the req.body
 
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+	// store: ... , // Redis, Memcached, etc. See below.
+})
+app.use(limiter)
 app.use(
   cors({
     origin: "https://mern-practice-0lqg.onrender.com", // Your frontend's domain
@@ -54,10 +63,10 @@ const sessionMiddleware = session({
   saveUninitialized: false, // Don't save empty sessions
   store: store,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    maxAge: 30 * 60 * 1000, // 30 mins
     secure: true, // Set to true in production (requires HTTPS)
     httpOnly: true,
-    sameSite: 'none'
+    sameSite: 'strict'
   },
 });
 

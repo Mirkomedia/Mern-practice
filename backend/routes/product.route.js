@@ -1,7 +1,6 @@
 import express from "express";
-import mongoose from "mongoose";
 import { createProduct, deleteProduct, getProducts, updateProduct, getProduct } from "../controllers/product.controller.js";
-
+import isAuthenticated from "../middleware/isAuthenticated.js";
 
 
 const router = express.Router();
@@ -14,6 +13,6 @@ router.post("/", createProduct);
 //PUT
 router.put("/:id", updateProduct)
 //DELETE
-router.delete("/:id", deleteProduct)
+router.delete("/:id",isAuthenticated, deleteProduct)
 
 export default router;
