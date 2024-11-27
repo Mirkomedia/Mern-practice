@@ -20,35 +20,44 @@ const CreatePage = () => {
 const closePreview = () => {
   setShowPreview(false); // Hide preview modal
 }
-const handleAddProduct = async () =>{
+const handleAddProduct = async () => {
+  try {
+    const user = loggedIn ? currentUser.name : "Anonymous";
+    console.log("User value:", user);
 
-   try{
     const productWithUser = { ...newProduct, user };
-   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`, {
+    console.log("Product with user:", productWithUser);
+
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`, {
       method: "POST",
       headers: {
-         'Content-Type' : 'application/json'
+        'Content-Type': 'application/json',
       },
-      body : JSON.stringify(productWithUser) 
-   })
-   if(!response.ok){
-   throw new Error(`Error: ${response.statusCode}`);
-}const data = await response.json();
-console.log('Product created succesfully', data)
-window.alert('Product created')
-setShowPreview(true)
-setNewProduct({
-  name: "",
-  price: "",
-  image: "",
-  description: "",
-  user: ""
- })
-   }catch (error){
-      console.log('Error creating product', error)
-      window.alert('Error creating product')
-   }
-}
+      body: JSON.stringify(productWithUser),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Product created successfully', data);
+
+    // Reset form and show confirmation
+    setNewProduct({
+      name: "",
+      price: "",
+      image: "",
+      description: "",
+      user: "",
+    });
+    window.alert('Product created');
+  } catch (error) {
+    console.error("Error creating product:", error);
+    window.alert('Error creating product');
+  }
+};
+
 
 
   return (
