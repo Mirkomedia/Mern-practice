@@ -18,7 +18,7 @@ const CreatePage = () => {
 
  console.log(currentUser)
  console.log(loggedIn)
-
+console.log(user)
 
 const closePreview = () => {
   setShowPreview(false); // Hide preview modal
