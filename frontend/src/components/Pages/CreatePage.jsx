@@ -12,7 +12,7 @@ const CreatePage = () => {
   price: "",
   image: "",
   description: "",
-  user
+  user: user
  }); 
  const [showPreview, setShowPreview] = useState(false);
 
