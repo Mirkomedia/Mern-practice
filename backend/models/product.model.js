@@ -20,6 +20,10 @@ const productSchema = new mongoose.Schema({
     user: {
         type: String,
         required: false,
+    },
+    locked: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

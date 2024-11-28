@@ -49,7 +49,7 @@ router.post("/logout", (req, res) => {
         path: "/",
         httpOnly: true,
         secure: true,
-        sameSite: "none",
+        sameSite: "strict",
       });
       return res.status(200).json({ message: "Logged out successfully" });
     });

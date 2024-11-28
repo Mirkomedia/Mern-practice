@@ -4,7 +4,8 @@ import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 import { useState, useEffect } from 'react'
 import InputField from '../InputField'
 import { Link} from 'react-router-dom';
-const DetailsPage = () => {
+import axios from 'axios';
+const DetailsPage = ({ loggedIn, currentUser }) => {
     
      
    const { loading, productData, id} = useFetchSingleProduct();
@@ -41,8 +42,11 @@ const DetailsPage = () => {
    }
 
    const handleEditProduct = async () =>{
-    try{
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`, {
+      if(loggedIn && productData.user === currentUser.name){
+      try{
+   
+    const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
+    {withCredentials: true}, {
        method: "PUT",
        headers: {
           'Content-Type' : 'application/json'
@@ -56,10 +60,13 @@ const DetailsPage = () => {
  window.alert('Product updated')
 
     }catch (error){
-       console.log('Error creating product', error)
-       window.alert('Error creating product')
-    }
- }
+       window.alert('Error updating product')
+    
+ }}
+else{
+   window.alert("You don't have the right to edit this product")
+}}
+
    return (
     <div>
       <div  className='product-container'>

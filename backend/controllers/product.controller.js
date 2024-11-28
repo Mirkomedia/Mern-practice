@@ -30,7 +30,6 @@ export const getProduct = async (req,res, next) =>{
 //Create a new product
 export const createProduct = async (req, res) => {
     const product = req.body; // User will send this data
-    console.log("Received product data:", product); // Check if user field is present
     if (!product.name || !product.price || !product.image) {
         return res.status(400).json({ success: false, message: "Please provide all fields" });
     }
