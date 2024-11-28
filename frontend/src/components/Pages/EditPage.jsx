@@ -78,7 +78,7 @@ const DetailsPage = () => {
       }
     };
     const handleUnlockedEditProduct = async () => {
-      if (loggedIn && currentUser.name === productData.user) {
+     
         try {
           const response = await axios.put(
             `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}/unlocked`,
@@ -108,9 +108,7 @@ const DetailsPage = () => {
             window.alert('An unexpected error occurred');
           }
         }
-      } else {
-        window.alert("You don't have the right to edit this product");
-      }
+   
     };
 
    return (
@@ -152,7 +150,7 @@ const DetailsPage = () => {
       rows="5" maxLength={500}/>
      
      <button  id='create-button' className='create-button' 
-      onClick={productData.locked ? handleEditProduct : handleUnlockedEditProduct}>Submit</button>
+      onClick={productData.locked === true ? handleEditProduct : handleUnlockedEditProduct}>Submit</button>
          < Link to={`/`}>Back to catalogue  </Link>
 
       </div>
