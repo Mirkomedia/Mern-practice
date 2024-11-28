@@ -13,7 +13,8 @@ const CreatePage = () => {
   price: "",
   image: "",
   description: "",
-  user: ""
+  user: "",
+  locked: false
  }); 
  const [showPreview, setShowPreview] = useState(false);
 
@@ -23,9 +24,10 @@ const closePreview = () => {
 const handleAddProduct = async () => {
   try {
     const user = loggedIn ? currentUser.name : "Anonymous";
+    const locked = loggedIn ?  true : false;
     console.log("User value:", user);
 
-    const productWithUser = { ...newProduct, user };
+    const productWithUser = { ...newProduct, user, locked };
     console.log("Product with user:", productWithUser);
 
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/products`, {

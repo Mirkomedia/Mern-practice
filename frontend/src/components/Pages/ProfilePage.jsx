@@ -83,6 +83,7 @@ const ProfilePage = () => {
       < Link className='back-catalogue' to={`/`}
          ><img className='back-arrow icon' src={ArrowLeft} width={60} height={60}/></Link>
         {renderUserInformation()}
+        <p>Your Products</p>
         <div className="product-container">{renderUserProducts()}</div>
        </div>
     </div>

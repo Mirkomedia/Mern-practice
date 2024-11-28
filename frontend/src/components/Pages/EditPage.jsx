@@ -46,6 +46,42 @@ const DetailsPage = () => {
         try {
           const response = await axios.put(
             `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
+            {withCredentials: true},
+            editProduct, // axios automatically stringifies JSON
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+    
+          console.log('Product updated successfully', response.data);
+          window.alert('Product updated');
+        } catch (error) {
+          // axios error handling
+          if (error.response) {
+            // Server responded with a status code outside the 2xx range
+            console.error('Error creating product:', error.response.data);
+            window.alert(`Error: ${error.response.status}`);
+          } else if (error.request) {
+            // Request was made but no response was received
+            console.error('No response received:', error.request);
+            window.alert('No response from server');
+          } else {
+            // Something else went wrong
+            console.error('Error:', error.message);
+            window.alert('An unexpected error occurred');
+          }
+        }
+      } else {
+        window.alert("You don't have the right to edit this product");
+      }
+    };
+    const handleUnlockedEditProduct = async () => {
+      if (loggedIn && currentUser.name === productData.user) {
+        try {
+          const response = await axios.put(
+            `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}/unlocked`,
             editProduct, // axios automatically stringifies JSON
             {
               headers: {
@@ -116,7 +152,7 @@ const DetailsPage = () => {
       rows="5" maxLength={500}/>
      
      <button  id='create-button' className='create-button' 
-      onClick={handleEditProduct}>Submit</button>
+      onClick={productData.locked ? handleEditProduct : handleUnlockedEditProduct}>Submit</button>
          < Link to={`/`}>Back to catalogue  </Link>
 
       </div>
