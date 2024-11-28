@@ -9,7 +9,7 @@ const DetailsPage = ({ loggedIn, currentUser }) => {
     
      
    const { loading, productData, id} = useFetchSingleProduct();
-   const [editProduct, setEditProduct] = useState({}); 
+   const [editProduct, setEditProduct] = useState(null); 
    useEffect(() => {
     if (productData) {
        setEditProduct(productData);
@@ -42,7 +42,7 @@ const DetailsPage = ({ loggedIn, currentUser }) => {
    }
 
    const handleEditProduct = async () =>{
-      if(loggedIn && productData.user === currentUser.name){
+      if(loggedIn && currentUser.name === productData?.user){
       try{
    
     const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
@@ -60,8 +60,8 @@ const DetailsPage = ({ loggedIn, currentUser }) => {
  window.alert('Product updated')
 
     }catch (error){
-       window.alert('Error updating product')
-    
+       window.alert('Error updating product')  
+       console.log(error)
  }}
 else{
    window.alert("You don't have the right to edit this product")
