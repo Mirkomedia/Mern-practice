@@ -4,9 +4,11 @@ import useFetchSingleProduct from '../../hooks/useFetchSingleProduct';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 import ArrowLeft  from '../../assets/ArrowLeft.png';
 import { Link} from 'react-router-dom';
+import useFetchSession from '../../hooks/useFetchSession';
 
 const DetailsPage = () => {
    const { loading, productData, id } = useFetchSingleProduct();
+   const { loggedIn, currentUser } = useFetchSession();
    const renderProductInformation = () => {
       if (!productData) return <p>Product not found.</p>;
 
@@ -23,10 +25,10 @@ const DetailsPage = () => {
                <p className='product-description'>{productData.description}</p>            
             </div>
             <div className='icon-container'>
-            < Link to={`/edit/${id}`}>  
+           {loggedIn && currentUser.name === productData.user && < Link to={`/edit/${id}`}>  
             <img className='edit-plume' src={EditPlume} alt='editIcon'  height={24} width={24} />
             Edit
-            </Link>
+            </Link>}
 
           </div>
          </div>

@@ -31,7 +31,7 @@ const limiter = rateLimit({
 app.use(limiter)
 app.use(
   cors({
-    origin: "https://mern-practice-0lqg.onrender.com", // Your frontend's domain
+    origin: "https://mern-practice-0lqg.onrender.com" || "localhost:5000", // Your frontend's domain
     credentials: true, // Allow cookies to be sent
   })
 );
@@ -47,14 +47,14 @@ store.on('error', (error) => {
 });
 
 //debugging middleware, might delete later
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   res.setHeader("Set-Cookie", "HttpOnly; Secure; SameSite=None");
   next();
 });
 app.use((req, res, next) => {
   console.log("Cookies in response:", res.getHeaders()["set-cookie"]);
   next();
-});
+}); */
 app.set("trust proxy", 1);
 // Configure session middleware
 const sessionMiddleware = session({

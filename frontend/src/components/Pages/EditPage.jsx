@@ -4,12 +4,13 @@ import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 import { useState, useEffect } from 'react'
 import InputField from '../InputField'
 import { Link} from 'react-router-dom';
-import axios from 'axios';
-const DetailsPage = ({ loggedIn, currentUser }) => {
+import axios from 'axios'
+import useFetchSession from '../../hooks/useFetchSession';
+const DetailsPage = () => {
     
-     
+   const { loggedIn, currentUser } = useFetchSession();
    const { loading, productData, id} = useFetchSingleProduct();
-   const [editProduct, setEditProduct] = useState(null); 
+   const [editProduct, setEditProduct] = useState({}); 
    useEffect(() => {
     if (productData) {
        setEditProduct(productData);
@@ -40,32 +41,41 @@ const DetailsPage = ({ loggedIn, currentUser }) => {
    if (loading) {
       return <p>Loading...</p>;
    }
-
-   const handleEditProduct = async () =>{
-      if(loggedIn && currentUser.name === productData?.user){
-      try{
-   
-    const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
-    {withCredentials: true}, {
-       method: "PUT",
-       headers: {
-          'Content-Type' : 'application/json'
-       },
-       body : JSON.stringify(editProduct) 
-    })
-    if(!response.ok){
-    throw new Error(`Error: ${response.statusCode}`);
- }const data = await response.json();
- console.log('Product updated succesfully', data)
- window.alert('Product updated')
-
-    }catch (error){
-       window.alert('Error updating product')  
-       console.log(error)
- }}
-else{
-   window.alert("You don't have the right to edit this product")
-}}
+   const handleEditProduct = async () => {
+      if (loggedIn && currentUser.name === productData.user) {
+        try {
+          const response = await axios.put(
+            `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
+            editProduct, // axios automatically stringifies JSON
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+    
+          console.log('Product updated successfully', response.data);
+          window.alert('Product updated');
+        } catch (error) {
+          // axios error handling
+          if (error.response) {
+            // Server responded with a status code outside the 2xx range
+            console.error('Error creating product:', error.response.data);
+            window.alert(`Error: ${error.response.status}`);
+          } else if (error.request) {
+            // Request was made but no response was received
+            console.error('No response received:', error.request);
+            window.alert('No response from server');
+          } else {
+            // Something else went wrong
+            console.error('Error:', error.message);
+            window.alert('An unexpected error occurred');
+          }
+        }
+      } else {
+        window.alert("You don't have the right to edit this product");
+      }
+    };
 
    return (
     <div>
