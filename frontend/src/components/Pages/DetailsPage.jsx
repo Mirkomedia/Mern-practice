@@ -29,6 +29,10 @@ const DetailsPage = () => {
             <img className='edit-plume' src={EditPlume} alt='editIcon'  height={24} width={24} />
             Edit
             </Link>}
+            {!productData.locked && < Link to={`/edit/${id}`}>  
+            <img className='edit-plume' src={EditPlume} alt='editIcon'  height={24} width={24} />
+            Edit
+            </Link>}
 
           </div>
          </div>

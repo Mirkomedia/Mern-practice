@@ -11,7 +11,7 @@ router.get("/:id", getProduct)
 //POST
 router.post("/", createProduct);
 //PUT
-router.put("/:id",isAuthenticated, updateProduct)
+router.put("/:id", isAuthenticated, updateProduct)
 //DELETE
 router.delete("/:id",isAuthenticated, deleteProduct)
 
