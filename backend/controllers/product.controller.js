@@ -52,6 +52,7 @@ export const updateProduct =   async (req, res) =>{
     if(!mongoose.Types.ObjectId.isValid(id)){
         return res.status(404).json({ success:false, message: "Invalid Product Id" })
     }
+    
     try {
         const updatedProduct = await Product.findByIdAndUpdate(id, product, { new:true });
 

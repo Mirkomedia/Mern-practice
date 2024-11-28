@@ -1,9 +1,14 @@
 import '../Styles/DetailsPage.css';
 import useFetchSingleUser from '../../hooks/useFetchSingleUser';
 import { Link } from 'react-router-dom'; 
+import { useState, useEffect } from 'react';
 import ArrowLeft  from '../../assets/ArrowLeft.png';
+import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
+import useFetchProducts from '../../hooks/useFetchProducts';
 const ProfilePage = () => {
-  const { loading, UserData, id } = useFetchSingleUser();
+  const { UserData, id } = useFetchSingleUser();
+  const { loading, productData } = useFetchProducts();
+  const [userProducts, setUserProducts] = useState([]);
 
   const renderUserInformation = () => {
     if (!UserData) return <p>User not found or you don't have the right o' you don't have the right</p>;
@@ -21,6 +26,51 @@ const ProfilePage = () => {
       </div>
     );
   };
+  
+  useEffect(() => {
+    if (UserData?.name && productData.length > 0) {
+      // Filter products for the logged-in user
+      const filteredProducts = productData.filter(
+        (product) => product.user === UserData.name
+      );
+      setUserProducts(filteredProducts);
+    }
+  }, [UserData, productData]);
+
+  const renderUserProducts = () => {
+    if (loading) {
+      return <p>Loading products...</p>;
+    }
+
+    if (userProducts.length === 0) {
+      return <p>No products found for this user.</p>;
+    }
+
+    return userProducts.map((product) => (
+      <div key={product._id} className="product-box">
+        <img
+          className="product-image"
+          alt="product"
+          src={product.image}
+          onError={(e) => {
+            e.target.onerror = null; // Prevent infinite loop if fallback fails
+            e.target.src = SikaSäkissä; // Set fallback image
+          }}
+        />
+        <div className="product-details">
+          <Link to={`/details/${product._id}`}>{product.name}</Link>
+          <p className="product-price">${product.price.toFixed(2)}</p>
+          <p>
+            {product.description
+              ? product.description.length > 50
+                ? `${product.description.slice(0, 50)}...`
+                : product.description
+              : ''}
+          </p>
+        </div>
+      </div>
+    ));
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -33,6 +83,7 @@ const ProfilePage = () => {
       < Link className='back-catalogue' to={`/`}
          ><img className='back-arrow icon' src={ArrowLeft} width={60} height={60}/></Link>
         {renderUserInformation()}
+        <div className="product-container">{renderUserProducts()}</div>
        </div>
     </div>
   );
