@@ -7,32 +7,27 @@ const useFetchSession = () => {
     name: 'Guest',
     role: 'Guest'
   });
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/session`,
-          { withCredentials: true }
-        );
+        const response = await axios.get("/api/session", { withCredentials: true });
         const { loggedIn, user } = response.data;
 
         setLoggedIn(loggedIn);
-        setCurrentUser(loggedIn ? user : { name: 'Guest', role: 'Guest' });
+        if (loggedIn) {
+          setCurrentUser(user);
+        }
       } catch (error) {
         console.error("Error fetching session:", error);
-        setLoggedIn(false);
-        setCurrentUser({ name: 'Guest', role: 'Guest' });
-      } finally {
-        setLoading(false); // Ensure loading is false after fetch
+
       }
     };
 
     fetchSession();
   }, []);
 
-  return { loggedIn, currentUser, loading }; // Optionally include setters if needed
+  return { loggedIn, setLoggedIn, currentUser, setCurrentUser }; // Include all states and setters
 };
 
 export default useFetchSession;
