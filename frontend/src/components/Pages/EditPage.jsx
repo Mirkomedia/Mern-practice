@@ -168,7 +168,7 @@ const DetailsPage = () => {
          <div className='delete-wrapper' onClick={handleDeleteProduct} style={{
           display: 'inline-flex'
          }}>
-          <img className='delete-icon' alt='delete-icon' src={DeleteIcon}/>
+          <img className='delete-icon' alt='delete-icon' src={DeleteIcon} height={24} width={24}/>
          <h3 style={{
           color: '#B22222'
          }}>Delete Product</h3>
