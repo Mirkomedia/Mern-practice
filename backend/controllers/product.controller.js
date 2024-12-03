@@ -89,6 +89,7 @@ export const deleteProduct = async (req, res) => {
     }
 
     try {
+        console.log(req.user)
         // Ensure the user is authenticated
         if (!req.user) {
             return res.status(401).json({ success: false, message: "Unauthorized, user not authenticated" });
