@@ -14,14 +14,22 @@ const useFetchSession = () => {
         setLoggedIn(loggedIn);
         if (loggedIn) {
           setCurrentUser(user);
+        }else{
+          setCurrentUser({
+            name: 'Guest',
+            role: 'Guest'
+          })
         }
       } catch (error) {
         console.error("Error fetching session:", error);
+        setLoggedIn(false);
+        setCurrentUser({
+          name: 'Guest',
+          role: 'Guest'
+        });
       }
-    };
-
     fetchSession();
-  }, []);
+}}, []);
 
   return { loggedIn, setLoggedIn, currentUser, setCurrentUser }; // Include all states and setters
 };

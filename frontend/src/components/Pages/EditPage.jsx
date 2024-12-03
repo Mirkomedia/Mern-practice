@@ -18,7 +18,7 @@ const DetailsPage = () => {
     }
  }, [productData]); // This runs when productData changes
     
-
+ console.log(currentUser)
    const renderProductInformation = () => {
       if (!editProduct) return <p>Product not found.</p>;
      

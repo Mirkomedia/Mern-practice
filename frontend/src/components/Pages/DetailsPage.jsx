@@ -34,7 +34,7 @@ const DetailsPage = () => {
             <img className='edit-plume' src={EditPlume} alt='editIcon'  height={24} width={24} />
             Edit
             </Link>}
-            {loggedIn && currentUser.role === admin || currentUser.name === productData.user &&
+            {loggedIn && currentUser.role === 'admin' || currentUser.name === productData.user &&
              <Link to={`/delete/${id}`} >
                <img className='delete-icon' src={DeleteIcon} alt='deleteIcon'  height={24} width={24} />
                Delete</Link> }
