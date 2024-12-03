@@ -3,7 +3,10 @@ import axios from "axios";
 
 const useFetchSession = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({
+    name: 'Guest',
+    role: 'Guest'
+  });
 
   useEffect(() => {
     const fetchSession = async () => {
