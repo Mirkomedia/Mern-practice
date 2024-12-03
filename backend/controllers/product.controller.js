@@ -80,19 +80,35 @@ export const updateUnlockedProduct =   async (req, res) =>{
        
     }
 };
-export const deleteProduct = async (req,res) =>{
-    const {id} = req.params
-    if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({success:false, message: "Invalid product Id"})
+export const deleteProduct = async (req, res) => {
+    const { id } = req.params;
+
+    // Check for valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Invalid product Id" });
     }
+
     try {
-      if (req.user.role === 'admin' || Product.user.toString() === req.user._id){
-      await Product.findByIdAndDelete(id);
-      res.status(200).json({ success:true, message: "Product deleted"})
-    }else{
-        return res.status(401).json({ message: 'Unauthorized'});    
-    }
+        // Ensure the user is authenticated
+        if (!req.user) {
+            return res.status(401).json({ success: false, message: "Unauthorized, user not authenticated" });
+        }
+
+        // Fetch the product
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        // Check if user is admin or the owner of the product
+        if (req.user.role === 'admin' || product.user.toString() === req.user._id.toString()) {
+            await Product.findByIdAndDelete(id);
+            return res.status(200).json({ success: true, message: "Product deleted" });
+        } else {
+            return res.status(401).json({ success: false, message: 'Unauthorized' });
+        }
     } catch (error) {
-        res.status(500).json({ success: false, message: "Server Error"})
+        console.error("Error deleting product:", error);
+        return res.status(500).json({ success: false, message: "Server Error" });
     }
-}
+};
