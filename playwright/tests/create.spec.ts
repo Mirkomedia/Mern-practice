@@ -37,13 +37,15 @@ test.describe('Create Product Page', () => {
     await price.fill('50');
     await image.fill('https://via.placeholder.com/150'); // Use a placeholder image
     await description.fill('This is a test product created by Playwright.');
-   // Wait for the network request and validate it
-   const [request] = await Promise.all([
+   // Wait for the network request and response and validate it
+   
+   const [request, response] = await Promise.all([
     page.waitForRequest((req) => req.url().includes('/api/products') && req.method() === 'POST'),
+    page.waitForResponse((res) => res.url().includes('/api/products') && res.status() === 201),
+   // Submit the product
     page.click('.create-button'),
 ]);
-    // Submit the product
-   
+ 
 
     // Wait for the dialog confirmation and dismiss it
     page.once('dialog', async (dialog) => {
@@ -66,13 +68,11 @@ test.describe('Create Product Page', () => {
     });
 
     // Wait for the network response and validate it
-    const [response] = await Promise.all([
-      page.waitForResponse((res) => res.url().includes('/api/products') && res.status() === 200),
-    ]);
-
+   
     const responseBody = await response.json();
-    expect(responseBody).toHaveProperty('_id'); // Ensure the response contains an ID for the new product
-
+    expect(responseBody).toHaveProperty('data._id'); // Ensure the response contains an ID for the new product
+    expect(typeof responseBody.data._id).toBe('string');
+    expect(responseBody).toHaveProperty('success', true)
     console.log('Product created successfully:', responseBody);
   });
 });

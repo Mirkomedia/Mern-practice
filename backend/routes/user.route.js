@@ -4,6 +4,7 @@ import { createUser, deleteUser, getUsers, updateUser, getUser } from "../contro
 import isAuthenticated from "../middleware/isAuthenticated.js";
 import bcrypt from 'bcryptjs';
 import User from "../models/user.model.js";
+import isAdmin from "../middleware/isAdmin.js";
 
 
 const router = express.Router();
@@ -60,10 +61,10 @@ router.post("/logout", (req, res) => {
 
 
 // Protect other routes with `isAuthenticated` as needed
-router.get("/", isAuthenticated, getUsers);
-router.get("/:id", isAuthenticated, getUser);
+router.get("/", isAuthenticated, isAdmin, getUsers);
+router.get("/:id", isAuthenticated,  getUser);
 router.post("/", createUser);
 router.put("/:id", isAuthenticated, updateUser);
-router.delete("/:id", isAuthenticated, deleteUser);
+router.delete("/:id", isAuthenticated, isAdmin, deleteUser);
 
 export default router;

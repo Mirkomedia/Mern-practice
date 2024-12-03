@@ -86,8 +86,12 @@ export const deleteProduct = async (req,res) =>{
         return res.status(404).json({success:false, message: "Invalid product Id"})
     }
     try {
+      if (req.user.role === 'admin' || Product.user.toString() === req.user._id){
       await Product.findByIdAndDelete(id);
       res.status(200).json({ success:true, message: "Product deleted"})
+    }else{
+        return res.status(401).json({ message: 'Unauthorized'});    
+    }
     } catch (error) {
         res.status(500).json({ success: false, message: "Server Error"})
     }

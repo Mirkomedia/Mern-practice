@@ -5,6 +5,7 @@ import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 import ArrowLeft  from '../../assets/ArrowLeft.png';
 import { Link} from 'react-router-dom';
 import useFetchSession from '../../hooks/useFetchSession';
+import DeleteIcon from '../../assets/DeleteIcon.svg'
 
 const DetailsPage = () => {
    const { loading, productData, id } = useFetchSingleProduct();
@@ -33,7 +34,10 @@ const DetailsPage = () => {
             <img className='edit-plume' src={EditPlume} alt='editIcon'  height={24} width={24} />
             Edit
             </Link>}
-
+            {loggedIn && currentUser.role === admin || currentUser.name === productData.user &&
+             <Link to={`/delete/${id}`} >
+               <img className='delete-icon' src={DeleteIcon} alt='deleteIcon'  height={24} width={24} />
+               Delete</Link> }
           </div>
          </div>
       );

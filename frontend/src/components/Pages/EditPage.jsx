@@ -6,6 +6,7 @@ import InputField from '../InputField'
 import { Link} from 'react-router-dom';
 import axios from 'axios'
 import useFetchSession from '../../hooks/useFetchSession';
+import DeleteIcon from '../../assets/DeleteIcon.svg'
 const DetailsPage = () => {
     
    const { loggedIn, currentUser } = useFetchSession();
@@ -110,7 +111,49 @@ const DetailsPage = () => {
         }
    
     };
-
+    const handleDeleteProduct = async () => {
+      // Show confirmation popup
+      const isConfirmed = window.confirm("Are you sure you want to delete this product?");
+    
+      if (!isConfirmed) {
+        return; // Exit if the user cancels
+      }
+    
+      if (loggedIn && (currentUser.name === productData.user || currentUser.role === 'admin')) {
+        try {
+          const response = await axios.delete(
+            `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+    
+          console.log('Product deleted', response.data);
+          window.alert('Product deleted');
+        } catch (error) {
+          // Axios error handling
+          if (error.response) {
+            // Server responded with a status code outside the 2xx range
+            console.error('Error deleting product:', error.response.data);
+            window.alert(`Error: ${error.response.status}`);
+          } else if (error.request) {
+            // Request was made but no response was received
+            console.error('No response received:', error.request);
+            window.alert('No response from server');
+          } else {
+            // Something else went wrong
+            console.error('Error:', error.message);
+            window.alert('An unexpected error occurred');
+          }
+        }
+      } else {
+        window.alert("You don't have the right to delete this product");
+      }
+    };
+    
    return (
     <div>
       <div  className='product-container'>
@@ -122,6 +165,14 @@ const DetailsPage = () => {
          <div className='grid-container' >
  
          <h1>Edit product</h1>
+         <div className='delete-wrapper' onClick={handleDeleteProduct} style={{
+          display: 'inline-flex'
+         }}>
+          <img className='delete-icon' alt='delete-icon' src={DeleteIcon}/>
+         <h3 style={{
+          color: '#B22222'
+         }}>Delete Product</h3>
+         </div>
          <InputField
         value={editProduct.name}
         onChange={(e) => setEditProduct({ ...editProduct, name: e.target.value })}

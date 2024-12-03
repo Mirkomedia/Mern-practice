@@ -10,6 +10,7 @@ import ProfilePage from './components/Pages/ProfilePage';
 import PalautePage from './components/Pages/PalautePage';
 import useFetchSession from './hooks/useFetchSession';
 
+
 function App() {
   const { loggedIn, currentUser, setLoggedIn, setCurrentUser } = useFetchSession();
 
@@ -26,6 +27,7 @@ function App() {
         <Route path ='/details/:id' element={<DetailsPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path ='/profile/:id' element={<ProfilePage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path ='/edit/:id' element={<EditPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+       
       </Routes>  
       </div>
   )

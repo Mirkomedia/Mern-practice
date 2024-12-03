@@ -10,7 +10,8 @@ const [newUser, setNewUser] = useState({
   email: "",
   phoneNumber: "",
   alternativeContact: "",
-  password: ""
+  password: "",
+  role: 'user'
 
  }); 
 
