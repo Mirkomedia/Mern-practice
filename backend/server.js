@@ -28,14 +28,14 @@ const limiter = rateLimit({
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
 	// store: ... , // Redis, Memcached, etc. See below.
 })
-app.use(limiter)
+/* app.use(limiter)
 app.use(
   cors({
     origin: "https://mern-practice-0lqg.onrender.com" || "localhost:5000", // Your frontend's domain
     credentials: true, // Allow cookies to be sent
   })
 );
-
+ */
 // Configure the MongoDB session store
 const store = new MongoDBStore({
   uri: process.env.MONGO_URI,
