@@ -1,20 +1,44 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Create Product Page', () => {
-  test('Should create a new unlocked product', async ({ page }) => {
+  test('Should create a new locked product', async ({ page }) => {
     // Navigate to the main page
     await page.goto('https://mern-practice-0lqg.onrender.com/');
-    page.on('request', (req) => {
-        console.log('Request URL:', req.url());
-        console.log('Request Method:', req.method());
-        console.log('Request Body:', req.postData());
-      });
 
-    // Click on the "Create a product" link
+    // Log request details
+    page.on('request', (req) => {
+      console.log('Request URL:', req.url());
+      console.log('Request Method:', req.method());
+      console.log('Request Body:', req.postData());
+    });
+
+    // First, log in to ensure the create product route doesn't fail
+    const loginLink = page.locator('a[href="/login"]');
+    await loginLink.click();
+    await expect(page).toHaveURL('https://mern-practice-0lqg.onrender.com/login');
+
+    // Make sure inputs are visible
+    const userName = page.locator('input[placeholder="Username"]');
+    await expect(userName).toBeVisible();
+    await userName.fill('James Bond');
+
+    const password = page.locator('input[placeholder="Password"]');
+    await expect(password).toBeVisible();
+    await password.fill('kultasilmä');
+
+    const loginBtn = page.locator('button:has-text("Login")');
+    await loginBtn.click();
+
+    // Handle dialog and ensure redirection to main page
+    page.once('dialog', async (dialog) => {
+      console.log(`Dialog message: ${dialog.message()}`);
+      await dialog.dismiss();
+    });
+    await expect(page).toHaveURL('https://mern-practice-0lqg.onrender.com');
+
+    // Navigate to the "Create a product" page
     const createProductLink = page.locator('.header-links-container a', { hasText: 'Create a product' });
     await createProductLink.click();
-
-    // Assert navigation to the create product page
     await expect(page).toHaveURL('https://mern-practice-0lqg.onrender.com/create');
 
     // Assert header and layout elements
@@ -35,44 +59,39 @@ test.describe('Create Product Page', () => {
 
     await name.fill('Test Product');
     await price.fill('50');
-    await image.fill('https://via.placeholder.com/150'); // Use a placeholder image
+    await image.fill('https://via.placeholder.com/150');
     await description.fill('This is a test product created by Playwright.');
-   // Wait for the network request and response and validate it
-   
-   const [request, response] = await Promise.all([
-    page.waitForRequest((req) => req.url().includes('/api/products') && req.method() === 'POST'),
-    page.waitForResponse((res) => res.url().includes('/api/products') && res.status() === 201),
-   // Submit the product
-    page.click('.create-button'),
-]);
- 
 
-    // Wait for the dialog confirmation and dismiss it
+    // Wait for the network request and response
+    const [request, response] = await Promise.all([
+      page.waitForRequest((req) => req.url().includes('/api/products') && req.method() === 'POST'),
+      page.waitForResponse((res) => res.url().includes('/api/products') && res.status() === 201),
+      page.click('.create-button'), // Trigger product creation
+    ]);
+
+    // Handle dialog confirmation and dismiss it
     page.once('dialog', async (dialog) => {
       console.log(`Dialog message: ${dialog.message()}`);
       expect(dialog.message()).toBe('Product created');
       await dialog.dismiss();
     });
 
-  
-
-    // Assert that the request body contains the expected product details
+    // Validate the request body
     const requestBody = JSON.parse(request.postData() || '{}');
     expect(requestBody).toMatchObject({
       name: 'Test Product',
-      price: '50',
+      price: "50",
       image: 'https://via.placeholder.com/150',
       description: 'This is a test product created by Playwright.',
-      user: 'Anonymous',
-      locked: false, // Should be false for unlocked products
+      locked: true,
     });
 
-    // Wait for the network response and validate it
-   
+    // Validate the response body
     const responseBody = await response.json();
     expect(responseBody).toHaveProperty('data._id'); // Ensure the response contains an ID for the new product
     expect(typeof responseBody.data._id).toBe('string');
-    expect(responseBody).toHaveProperty('success', true)
+    expect(responseBody).toHaveProperty('success', true);
+
     console.log('Product created successfully:', responseBody);
   });
 });
