@@ -13,7 +13,7 @@ const DetailsPage = () => {
    const { loggedIn, currentUser } = useFetchSession();
    const { loading, productData, id} = useFetchSingleProduct();
    const [editProduct, setEditProduct] = useState({}); 
-   const isOwner = currentUser?._id === productData?.user._id;
+   const isOwner = currentUser?._id && productData?.user?._id && currentUser._id === productData.user._id;
    const isAdmin = currentUser?.role === 'admin';
    const navigate = useNavigate();
    useEffect(() => {
