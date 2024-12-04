@@ -52,6 +52,7 @@ const ProfilePage = () => {
     }
 
     return userProducts.map((product) => (
+    <div className='product-grid'>
       <div key={product._id} className="product-box">
         <img
           className="product-image"
@@ -73,6 +74,7 @@ const ProfilePage = () => {
               : ''}
           </p>
         </div>
+      </div>
       </div>
     ));
   };
