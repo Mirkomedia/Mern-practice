@@ -1,9 +1,11 @@
 import Product from "../models/product.model.js";
 import mongoose from "mongoose";
+
+
 //GET
  export const getProducts =  async (req, res) =>{
     try {
-        const products = await Product.find({});
+        const products = await Product.find({}).populate('user', '_id name');
         res.status(200).json({success:true, data: products});
     } catch (error) {
         console.log("error in fetching products");
@@ -19,7 +21,8 @@ export const getProduct = async (req,res, next) =>{
         return res.status(404).json({ success:false, message: "Invalid Product Id" })
     }
     try {
-        const singleProduct = await Product.findById(id);
+        const singleProduct = await Product.findById(id).populate('user'); // Assuming user is a reference to User model
+
 
        res.status(200).json({ success:true, data: singleProduct })
     } catch (error) {
@@ -27,20 +30,37 @@ export const getProduct = async (req,res, next) =>{
        
     }
 };
-//Create a new product
 export const createProduct = async (req, res) => {
-    const product = req.body; // User will send this data
-    if (!product.name || !product.price || !product.image) {
+    const { name, price, image, description, locked } = req.body;
+
+    // Ensure the necessary fields are provided
+    if (!name || !price || !image) {
         return res.status(400).json({ success: false, message: "Please provide all fields" });
     }
 
-    const newProduct = new Product(product);
+    // Get the current logged-in user's ID from the session (req.user is populated by the middleware)
+    const userId = req.session.userId;  // Make sure req.session contains user data with _id
+
+    // Check if the user ID is valid
+    if (!userId) {
+        return res.status(401).json({ success: false, message: "User is not authenticated" });
+    }
+
+    // Create new product with the user's ID
+    const newProduct = new Product({
+        name,
+        price,
+        image,
+        description,
+        locked,
+        user: userId,  // Set the logged-in user's ObjectId as the user reference
+    });
 
     try {
         await newProduct.save();
         res.status(201).json({ success: true, data: newProduct });
     } catch (error) {
-        console.error("Error in create product:", error.message);
+        console.error("Error in create product:", error);
         res.status(500).json({ success: false, message: "Server Error" });
     }
 };
@@ -89,12 +109,7 @@ export const deleteProduct = async (req, res) => {
     }
 
     try {
-        console.log(req.user)
-        // Ensure the user is authenticated
-        if (!req.user) {
-            return res.status(401).json({ success: false, message: "Unauthorized, user not authenticated" });
-        }
-
+        console.log(req.session.userId)
         // Fetch the product
         const product = await Product.findById(id);
         if (!product) {
@@ -102,7 +117,7 @@ export const deleteProduct = async (req, res) => {
         }
 
         // Check if user is admin or the owner of the product
-        if (req.user.role === 'admin' || product.user.toString() === req.user._id.toString()) {
+        if (req.session.userRole === 'admin' || product?.user.toString() === req.session.userId.toString()) {
             await Product.findByIdAndDelete(id);
             return res.status(200).json({ success: true, message: "Product deleted" });
         } else {

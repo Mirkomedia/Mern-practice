@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useLocation}  from "react-router-dom"
 
 const useFetchSession = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({
-    name: 'Guest',
-    role: 'Guest'
-  });
-
+  const [currentUser, setCurrentUser] = useState(null);
+  const location = useLocation();
   useEffect(() => {
     const fetchSession = async () => {
       try {
@@ -25,7 +23,7 @@ const useFetchSession = () => {
     };
 
     fetchSession();
-  }, []);
+  }, [location.pathname]);
 
   return { loggedIn, setLoggedIn, currentUser, setCurrentUser }; // Include all states and setters
 };

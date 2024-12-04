@@ -29,6 +29,7 @@ router.post("/login", async (req, res) => {
     // Set session data
     req.session.userId = user._id;
     req.session.userName = user.name
+    req.session.userRole = user.role
     
     return res.status(200).json({ message: "Logged in successfully", user: user });
   } catch (error) {
@@ -61,7 +62,7 @@ router.post("/logout", (req, res) => {
 
 
 // Protect other routes with `isAuthenticated` as needed
-router.get("/", isAuthenticated, isAdmin, getUsers);
+router.get("/", isAuthenticated, isAdmin,  getUsers);
 router.get("/:id", isAuthenticated,  getUser);
 router.post("/", createUser);
 router.put("/:id", isAuthenticated, updateUser);

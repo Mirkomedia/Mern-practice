@@ -17,10 +17,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    user: {
-        type: String,
-        required: false,
-    },
+        user: { 
+            type: mongoose.Schema.Types.ObjectId, ref: 'User' ,
+        required: true
+        }
+    ,
     locked: {
         type: Boolean,
         default: false

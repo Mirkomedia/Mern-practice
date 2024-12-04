@@ -2,16 +2,17 @@ import '../Styles/DetailsPage.css';
 import useFetchSingleUser from '../../hooks/useFetchSingleUser';
 import { Link } from 'react-router-dom'; 
 import { useState, useEffect } from 'react';
-import ArrowLeft  from '../../assets/ArrowLeft.png';
-import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
+import ArrowLeft from '../../assets/ArrowLeft.png';
+import SikaSäkissä from '../../assets/SikaSäkissä.webp';
 import useFetchProducts from '../../hooks/useFetchProducts';
+
 const ProfilePage = () => {
-  const { UserData, id } = useFetchSingleUser();
-  const { loading, productData } = useFetchProducts();
+  const { UserData, id } = useFetchSingleUser(); // Fetch single user data
+  const { loading, productData } = useFetchProducts(); // Fetch all products
   const [userProducts, setUserProducts] = useState([]);
 
   const renderUserInformation = () => {
-    if (!UserData) return <p>User not found or you don't have the right o' you don't have the right</p>;
+    if (!UserData) return <p>User not found or you don't have the right to view this profile.</p>;
 
     return (
       <div className='product-box'>
@@ -26,16 +27,20 @@ const ProfilePage = () => {
       </div>
     );
   };
-  
+
   useEffect(() => {
-    if (UserData?.name && productData.length > 0) {
-      // Filter products for the logged-in user
-      const filteredProducts = productData.filter(
-        (product) => product.user === UserData.name
-      );
+    if (UserData?._id && productData.length > 0) {
+      // Filter products safely
+      const filteredProducts = productData.filter((product) => {
+        if (!product.user || !UserData._id) {
+          return false; // Skip products with missing user field
+        }
+        return product.user._id.toString() === UserData._id.toString();
+      });
       setUserProducts(filteredProducts);
     }
   }, [UserData, productData]);
+  
 
   const renderUserProducts = () => {
     if (loading) {
@@ -80,12 +85,13 @@ const ProfilePage = () => {
     <div className='product-container'>
       <h1>Details for User ID: {id}</h1>
       <div className='detail-grid'>
-      < Link className='back-catalogue' to={`/`}
-         ><img className='back-arrow icon' src={ArrowLeft} width={60} height={60}/></Link>
+        <Link className='back-catalogue' to={`/`}>
+          <img className='back-arrow icon' src={ArrowLeft} width={60} height={60} />
+        </Link>
         {renderUserInformation()}
         <p>Your Products</p>
         <div className="product-container">{renderUserProducts()}</div>
-       </div>
+      </div>
     </div>
   );
 };

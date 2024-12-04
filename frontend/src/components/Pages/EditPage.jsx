@@ -3,24 +3,27 @@ import useFetchSingleProduct from '../../hooks/useFetchSingleProduct';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 import { useState, useEffect } from 'react'
 import InputField from '../InputField'
-import { Link} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import useFetchSession from '../../hooks/useFetchSession';
 import DeleteIcon from '../../assets/DeleteIcon.svg'
+
 const DetailsPage = () => {
     
    const { loggedIn, currentUser } = useFetchSession();
    const { loading, productData, id} = useFetchSingleProduct();
    const [editProduct, setEditProduct] = useState({}); 
+   const isOwner = currentUser?._id === productData?.user._id;
+   const isAdmin = currentUser?.role === 'admin';
+   const navigate = useNavigate();
    useEffect(() => {
     if (productData) {
        setEditProduct(productData);
     }
  }, [productData]); // This runs when productData changes
-    
- console.log(currentUser)
+
    const renderProductInformation = () => {
-      if (!editProduct) return <p>Product not found.</p>;
+      if (!editProduct || productData === null) return <p>Product not found.</p>;
      
       return (
          <div className='product-box'>
@@ -43,7 +46,7 @@ const DetailsPage = () => {
       return <p>Loading...</p>;
    }
    const handleEditProduct = async () => {
-      if (loggedIn && currentUser.name === productData.user) {
+      if (isOwner || isAdmin) {
         try {
           const response = await axios.put(
             `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
@@ -119,7 +122,7 @@ const DetailsPage = () => {
         return; // Exit if the user cancels
       }
     
-      if (loggedIn && (currentUser.name === productData.user || currentUser.role === 'admin')) {
+      if   (loggedIn && (isOwner || isAdmin)) {
         try {
           const response = await axios.delete(
             `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`,
@@ -133,6 +136,7 @@ const DetailsPage = () => {
     
           console.log('Product deleted', response.data);
           window.alert('Product deleted');
+          navigate('/')
         } catch (error) {
           // Axios error handling
           if (error.response) {
@@ -202,7 +206,7 @@ const DetailsPage = () => {
       rows="5" maxLength={500}/>
      
      <button  id='create-button' className='create-button' 
-      onClick={productData.locked === true ? handleEditProduct : handleUnlockedEditProduct}>Submit</button>
+      onClick={productData?.locked === true ? handleEditProduct : handleUnlockedEditProduct}>Submit</button>
          < Link to={`/`}>Back to catalogue  </Link>
 
       </div>

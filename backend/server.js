@@ -23,7 +23,7 @@ app.use(express.json()); // Allows us to accept JSON data in the req.body
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, // 15 minutes
-	limit: 1000, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	limit: 1000, // Limit each IP to 1000 requests per `window` (here, per 15 minutes).
 	standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
 	// store: ... , // Redis, Memcached, etc. See below.
@@ -46,15 +46,7 @@ store.on('error', (error) => {
   console.error('Session store error:', error);
 });
 
-//debugging middleware, might delete later
-/* app.use((req, res, next) => {
-  res.setHeader("Set-Cookie", "HttpOnly; Secure; SameSite=None");
-  next();
-});
-app.use((req, res, next) => {
-  console.log("Cookies in response:", res.getHeaders()["set-cookie"]);
-  next();
-}); */
+
 app.set("trust proxy", 1);
 // Configure session middleware
 const sessionMiddleware = session({
