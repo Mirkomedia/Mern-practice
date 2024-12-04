@@ -16,7 +16,7 @@ const DetailsPage = () => {
    const renderProductInformation = () => {
       if (!productData) return <p>Product not found.</p>;
      
-      const isOwner = currentUser?._id === productData.user._id;
+      const isOwner = currentUser?._id && productData?.user?._id && currentUser._id === productData.user._id;
       const isAdmin = currentUser?.role === 'admin';
 
       return (
