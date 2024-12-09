@@ -5,7 +5,7 @@ import InputField from '../InputField'
 import useFetchSession from '../../hooks/useFetchSession.js'
 
 const CreatePage = () => {
-  const { loggedIn, currentUser, setLoggedIn, setCurrentUser } = useFetchSession();
+  const { loggedIn, currentUser } = useFetchSession();
   const user = loggedIn ? currentUser._id : null; // Use session user's _id
   const navigate = useNavigate();
   const [newProduct, setNewProduct] = useState({
@@ -16,12 +16,6 @@ const CreatePage = () => {
     user: user, // Attach user._id here
     locked: false
   });
-
-  const [showPreview, setShowPreview] = useState(false);
-
-  const closePreview = () => {
-    setShowPreview(false); // Hide preview modal
-  };
 
   const handleAddProduct = async () => {
     try {
@@ -61,7 +55,9 @@ const CreatePage = () => {
       window.alert('Error creating product');
     }
   };
-
+  if (loggedIn === undefined) {
+    return <div>Loading...</div>; // Or a suitable loader
+  }
   return (
     <div>
       <div className='grid-container' >

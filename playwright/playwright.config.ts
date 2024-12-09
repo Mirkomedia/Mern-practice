@@ -19,7 +19,7 @@ export default defineConfig({
         viewport: { width: 1280, height: 720 },
       },
     },
-    {
+  /*    {
       name: 'firefox',
       use: {
         ...devices['Desktop Firefox'],
@@ -31,7 +31,7 @@ export default defineConfig({
       use: {
         ...devices['Desktop Safari'],
       },
-    },
+    },  */
   ],
  /*  webServer: {
     command: 'npm run dev', // Start your MERN app

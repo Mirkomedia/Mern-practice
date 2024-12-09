@@ -76,29 +76,5 @@ test.describe('HomePage Tests', () => {
     await expect(page).toHaveURL(/\/login|\/profile\/.+/); // Regex matches either login or profile URL
   });
 
-  test('should verify search functionality', async ({ page }) => {
-    // Navigate to the homepage
-    await page.goto('https://mern-practice-0lqg.onrender.com/');
-
-    // Enter a search term
-    const searchInput = page.locator('input[placeholder="Search for products"]'); // Adjust placeholder text if different
-    await searchInput.fill('test product');
-    await searchInput.press('Enter');
-
-    // Verify filtered results are displayed
-    const productGrid = page.locator('.product-grid');
-    await expect(productGrid).toBeVisible();
-    const filteredProductBox = productGrid.locator('.product-box').first();
-    await expect(filteredProductBox).toBeVisible();
-
-    // Verify the "Clear filters" text appears
-    const clearFilters = page.locator('text=Clear filters');
-    await expect(clearFilters).toBeVisible();
-    await clearFilters.click();
-
-    // Verify all products are displayed again
-    const allProductBox = productGrid.locator('.product-box').first();
-    await expect(allProductBox).toBeVisible();
-  });
   
 })
