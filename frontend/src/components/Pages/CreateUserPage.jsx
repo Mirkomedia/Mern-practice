@@ -66,7 +66,7 @@ const handleAddUser = async () => {
       password: ""
     });
 
-    navigate('/'); // Redirect to another page, like the home page
+    navigate('/'); // Redirect to  home page
   } catch (error) {
     console.log('Error creating User:', error);
     window.alert('Error creating User');
@@ -84,7 +84,7 @@ const handleAddUser = async () => {
         value={newUser.name}
         onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
         type="text"
-        placeholder="User Name"
+        placeholder="Username"
         name="name"
       />
 
@@ -100,14 +100,14 @@ const handleAddUser = async () => {
         value={newUser.phoneNumber}
         onChange={(e) => setNewUser({ ...newUser, phoneNumber: e.target.value })}
         type="text"
-        placeholder="phoneNumber"
+        placeholder="phonenumber"
         name="phoneNumber"
       />
         <InputField
         value={newUser.alternativeContact}
         onChange={(e) => setNewUser({ ...newUser,   alternativeContact: e.target.value })}
         type="text"
-        placeholder="alternativeContact"
+        placeholder="alternative contact"
         name="alternativeContact"
       />
        <InputField

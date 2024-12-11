@@ -43,11 +43,11 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
   };
   const handleKeyDown = (event) =>{ 
     if(event.key === 'Enter')
-    handleLogIn;
+    handleLogIn();
 }
   return (
     <div>
-      <div className='grid-container'>
+      <div className='grid-container'   onKeyDown={handleKeyDown}  >
         <h1>
           Log in or <InsiteLink 
             name='Create an account' 
@@ -69,7 +69,7 @@ const LoginPage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser }) => {
           type="password"  // Use 'password' type to hide input
           placeholder="Password"
           name="password"
-          onKeyDown={handleKeyDown} 
+       
         />
         <button className='create-button' onClick={handleLogIn}>Login</button>
       </div>
