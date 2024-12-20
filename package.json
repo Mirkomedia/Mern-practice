@@ -28,6 +28,8 @@
     "mock-aws-s3": "^4.0.2",
     "mongodb": "^6.10.0",
     "mongoose": "^8.7.2",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "vite": "^5.4.10"
   },
   "devDependencies": {

@@ -12,6 +12,8 @@ import DeleteIcon from '../../assets/DeleteIcon.svg'
 const DetailsPage = () => {
    const { loading, productData, id } = useFetchSingleProduct();
    const { loggedIn, currentUser } = useFetchSession();
+   const chatParticipants = [productData?.user._id, currentUser?._id] 
+   const chatUrl = chatParticipants.sort().join('/')
    console.log(productData)
    const renderProductInformation = () => {
       if (!productData) return <p>Product not found.</p>;
@@ -72,6 +74,19 @@ const DetailsPage = () => {
    return (
       <div className="product-container">
          <h1>Details for Product ID: {id}</h1>
+         <div>
+      {productData.user && <h2>Made by {productData.user.name}</h2>}
+
+      {/* Link to start chat */}
+      {productData.user && currentUser && (
+   <Link 
+     to={`/chat/${chatUrl}`} 
+     className="chat-button"
+   >
+     Chat with Seller
+   </Link>
+)}
+    </div>
          <div className="detail-grid">
             <Link className="back-catalogue" to={`/`}>
                <img

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 const InsiteLink = ({  image, name, linkTo }) => {
   return (
-    <div>
+    <div className='link-container'>
    
      < Link to={linkTo}>  
      <div className='flex-wrapper'>

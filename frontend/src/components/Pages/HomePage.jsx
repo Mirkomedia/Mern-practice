@@ -5,12 +5,14 @@ import useFetchProducts from '../../hooks/useFetchProducts';
 import SikaSäkissä  from '../../assets/SikaSäkissä.webp';
 import PlusIcon from '../../assets/PlusIcon.svg'
 import ProfileIcon from '../../assets/ProfileIcon.svg'
+import MessageIcon from '../../assets/MessageIcon.svg'
 import InsiteLink from '../InsiteLink';
 import SearchInput from '../SearchInput';
 import PalauteBoksi from '../PalauteBoksi';
 import ScrollUpButton from '../ScrollUpButton';
 import SearchResultsPage from './SearchResultsPage';
 import LogoutButton from '../LogoutButton' ; 
+import CamelWalking from '../../assets/CamelWalking.gif'
 
 
 const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
@@ -44,7 +46,7 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
    }
 
    if (loading) {
-      return <p>Loading...</p>;
+      return <img src={CamelWalking} alt='loading...' />;
    }
 
    return (
@@ -64,7 +66,11 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
          name='Create a product'
          image={PlusIcon}
          linkTo='/create'/>
-   
+        {loggedIn === true && <InsiteLink 
+         name='Messages'
+         image={MessageIcon}
+         linkTo={`/chat/${currentUser._id}`}
+         />}
          </div>
          <SearchInput searchedProduct={searchedProduct}
           setSearchedProduct={setSearchedProduct}

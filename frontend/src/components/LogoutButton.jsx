@@ -37,7 +37,7 @@ const LogoutButton = ({ setLoggedIn, setCurrentUser }) => {
   return (
 
      <div className="logout" onClick={handleLogout}>
-        <img src={LogoutIcon} alt="logoutIcon" height={40} width={40}/>
+        <img className="logout-icon" src={LogoutIcon} alt="logoutIcon" height={40} width={40}/>
         <p>logout</p>
     </div>
    
