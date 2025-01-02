@@ -19,59 +19,65 @@ const navigate = useNavigate();
 
 const handleAddUser = async () => {
   try {
-    // Create the new user
-    const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/`, newUser, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    const response = await axios.post("https://mern-practice-0lqg.onrender.com/api/users/", o, {
+      headers: { "Content-Type": "application/json" },
     });
 
-    if (response.status !== 200) {
+    // Correctly check for status 201
+    if (response.status !== 201) {
       throw new Error(`Error: ${response.status}`);
     }
 
-    const createdUserData = response.data; // Assuming your API sends user data in response
-    console.log('User created successfully', createdUserData);
-    const userId = createdUserData._id; // Adjust based on your response structure
-    console.log(userId);
+    const createdUserData = response.data?.data; // Access the data object inside the response
+    console.log("User created successfully:", createdUserData);
+
+    const userId = createdUserData?._id; // Extract _id
+    if (!userId) {
+      throw new Error("User ID is missing from the response.");
+    }
+    console.log("Extracted User ID:", userId);
 
     // Fetch the created user's details
-    const userResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`, {
-      withCredentials: true // Now this is fine because we're fetching user details after creation
+    const userResponse = await axios.get(`https://mern-practice-0lqg.onrender.com/api/users/${userId}`, {
+      withCredentials: true,
     });
 
     if (userResponse.status !== 200) {
-      throw new Error('Error retrieving user data');
+      throw new Error("Error retrieving user data");
     }
 
     const userData = userResponse.data;
-    console.log('Fetched user data:', userData);
+    console.log("Fetched user data:", userData);
 
     // Set the current user and update logged-in state
     setCurrentUser(userData);
     setLoggedIn(true);
+
+    // Log in the user
     await axios.post(
-      '/api/users/login',
-      newUser.name, newUser.password ,
+      "https://mern-practice-0lqg.onrender.com/api/users/login",
+      { name: o.name, password: o.password },
       { withCredentials: true }
     );
 
     // Notify and reset the form
-    window.alert('User created');
+    window.alert("User created");
     setNewUser({
       name: "",
       email: "",
       phoneNumber: "",
       alternativeContact: "",
-      password: ""
+      password: "",
     });
 
-    navigate('/'); // Redirect to  home page
+    navigate("/"); // Redirect to home page
   } catch (error) {
-    console.log('Error creating User:', error);
-    window.alert('Error creating User');
+    console.error("Error creating User:", error);
+    window.alert("Error creating User");
   }
 };
+
+
 
 
 

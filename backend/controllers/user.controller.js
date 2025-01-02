@@ -42,6 +42,7 @@ export const createUser = async (req, res) => {
   const newUser = new User(userData);
 
   try {
+    console.log("Request Body:", req.body);
     await newUser.save();
     res.status(201).json({ success: true, data: newUser });
   } catch (error) {

@@ -94,10 +94,11 @@ const ChatPage = () => {
 
   const handleSendMessage = () => {
     if (newMessage.trim() && userId1 && userId2) {
+      const recipient = [userId1, userId2].filter(!currentUserId)
       // Optimistically update the messages state
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: userId1, recipient: userId2, message: newMessage, timestamp: new Date() },
+        { sender: currentUserId, recipient: recipient, message: newMessage, timestamp: new Date() },
       ]);
       setNewMessage('');
 

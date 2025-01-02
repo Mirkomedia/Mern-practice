@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5000', // Update with your frontend's URL
+    origin: ['https://mern-practice-0lqg.onrender.com',"http://localhost:5000"],  // Update with your frontend's URL
     methods: ['GET', 'POST'],
   },
 });
@@ -73,8 +73,8 @@ const sessionMiddleware = session({
   store: store,
   cookie: {
     maxAge: 30 * 60 * 1000, // 30 mins
-    secure: false ,
-    httpOnly:  false ,
+    secure: true ,
+    httpOnly:  true ,
     sameSite: 'strict',
   },
 });
