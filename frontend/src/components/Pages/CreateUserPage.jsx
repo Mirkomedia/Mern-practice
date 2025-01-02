@@ -19,63 +19,74 @@ const navigate = useNavigate();
 
 const handleAddUser = async () => {
   try {
-    // Create the new user
+    // Step 1: Create the new user
     const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/`, newUser, {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     });
 
     if (response.status !== 201) {
       throw new Error(`Error: ${response.status}`);
     }
 
-    const createdUserData = response.data?.data; // Assuming your API sends user data in response
+    const createdUserData = response.data?.data; // Extract user data from response
     console.log("Response Data:", response.data);
-    console.log('User created successfully', createdUserData);
-    const userId = createdUserData?._id; // Adjust based on your response structure¨
-    if(!userId){
-      throw new Error("user Id is missing form the repsonse")
-    }
-    console.log("extracted user id", userId);
+    console.log("User created successfully", createdUserData);
 
-    // Fetch the created user's details
+    const userId = createdUserData?._id; // Ensure user ID is available
+    if (!userId) {
+      throw new Error("User ID is missing from the response");
+    }
+    console.log("Extracted user ID", userId);
+
+    // Step 2: Log in the user
+    const loginResponse = await axios.post(
+      `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
+      { name: newUser.name, password: newUser.password }, // Ensure correct payload
+      { withCredentials: true } // Send cookies with the request
+    );
+
+    if (loginResponse.status !== 200) {
+      throw new Error(`Login failed: ${loginResponse.status}`);
+    }
+    console.log("Login successful");
+
+    setLoggedIn(true); // Update state after successful login
+
+    // Step 3: Fetch user details
     const userResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/${userId}`, {
-      withCredentials: true // Now this is fine because we're fetching user details after creation
+      withCredentials: true,
     });
 
     if (userResponse.status !== 200) {
-      throw new Error('Error retrieving user data');
+      throw new Error("Error retrieving user data");
     }
 
     const userData = userResponse.data;
-    console.log('Fetched user data:', userData);
+    console.log("Fetched user data:", userData);
 
-    // Set the current user and update logged-in state
+    // Step 4: Update the current user state and notify success
     setCurrentUser(userData);
-    setLoggedIn(true);
-    await axios.post(
-      '/api/users/login',
-      newUser.name, newUser.password ,
-      { withCredentials: true }
-    );
+    window.alert("User created successfully");
 
-    // Notify and reset the form
-    window.alert('User created');
+    // Reset form fields
     setNewUser({
       name: "",
       email: "",
       phoneNumber: "",
       alternativeContact: "",
-      password: ""
+      password: "",
     });
 
-    navigate('/'); // Redirect to  home page
+    // Redirect to home page
+    navigate("/");
   } catch (error) {
-    console.log('Error creating User:', error);
-    window.alert('Error creating User');
+    console.log("Error creating User:", error.message);
+    window.alert("Error creating User");
   }
 };
+
 
 
 
