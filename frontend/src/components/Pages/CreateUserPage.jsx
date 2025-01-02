@@ -43,8 +43,8 @@ const handleAddUser = async () => {
     // Step 2: Log in the user
     const loginResponse = await axios.post(
       `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
-      { name: newUser.name, password: newUser.password }, // Ensure correct payload
-      { withCredentials: true } // Send cookies with the request
+      { name: newUser.name, password: newUser.password } // Ensure correct payload
+     // Send cookies with the request
     );
 
     if (loginResponse.status !== 200) {
@@ -83,7 +83,7 @@ const handleAddUser = async () => {
     navigate("/");
   } catch (error) {
     console.log("Error creating User:", error.message);
-    window.alert("Error creating User");
+    window.alert(error.message);
   }
 };
 
