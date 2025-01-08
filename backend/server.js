@@ -73,8 +73,8 @@ const sessionMiddleware = session({
   store: store,
   cookie: {
     maxAge: 30 * 60 * 1000, // 30 mins
-    secure: false ,
-    httpOnly:  false ,
+    secure: true ,
+    httpOnly:  true ,
     sameSite: 'strict',
   },
 });
