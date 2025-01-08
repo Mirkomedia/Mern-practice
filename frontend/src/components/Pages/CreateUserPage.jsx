@@ -39,12 +39,15 @@ const handleAddUser = async () => {
       throw new Error("User ID is missing from the response");
     }
     console.log("Extracted user ID", userId);
+    window.alert("User created successfully");
+/* 
+    // Add a small delay before attempting login
+    await new Promise(resolve => setTimeout(resolve, 2000)); // 1 second delay
 
     // Step 2: Log in the user
     const loginResponse = await axios.post(
       `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
-      { name: newUser.name, password: newUser.password } // Ensure correct payload
-     // Send cookies with the request
+      { name: newUser.name, password: newUser.password }
     );
 
     if (loginResponse.status !== 200) {
@@ -68,8 +71,8 @@ const handleAddUser = async () => {
 
     // Step 4: Update the current user state and notify success
     setCurrentUser(userData);
-    window.alert("User created successfully");
-
+   
+ */
     // Reset form fields
     setNewUser({
       name: "",
@@ -80,13 +83,13 @@ const handleAddUser = async () => {
     });
 
     // Redirect to home page
-    navigate("/");
+    navigate("/login");
+
   } catch (error) {
     console.log("Error creating User:", error.message);
     window.alert(error.message);
   }
 };
-
 
 
 
