@@ -27,7 +27,9 @@ const ChatPage = () => {
 
         // Attempt to fetch the existing chat
         const response = await axios.get(`/api/chats/${chatUrl}`, { withCredentials: true });
+        if(response){
         setChat(response.data); // Store the existing chat
+        }
       } catch (err) {
         if (err.response && err.response.status === 404) {
           // Chat doesn't exist, create a new one
@@ -39,7 +41,7 @@ const ChatPage = () => {
               lastMessage: 'No messages yet',
               chatId: chatId,
             };
-            const createResponse = await axios.post('/api/chats', { withCredentials: true }, newChat);
+            const createResponse = await axios.post('/api/chats', newChat, { withCredentials: true } );
             setChat(createResponse.data); // Store the newly created chat
           } catch (createErr) {
             setError('Failed to create a new chat.');

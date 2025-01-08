@@ -26,7 +26,7 @@ router.get('/:userId1/:userId2', /* isAuthenticated, */ async (req,res) =>{
     }
   })
   //create new chat
-  router.post('/', isAuthenticated, async (req, res) => {
+  router.post('/',  isAuthenticated, async (req, res) => {
     const { participants } = req.body;
   
     try {
