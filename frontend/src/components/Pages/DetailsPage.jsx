@@ -12,7 +12,7 @@ import DeleteIcon from '../../assets/DeleteIcon.svg'
 const DetailsPage = () => {
    const { loading, productData, id } = useFetchSingleProduct();
    const { loggedIn, currentUser } = useFetchSession();
-   const chatParticipants = [productData?.user._id, currentUser?._id] 
+   const chatParticipants = [productData?.user?._id, currentUser?._id] 
    const chatUrl = chatParticipants.sort().join('/')
    console.log(productData)
    const renderProductInformation = () => {

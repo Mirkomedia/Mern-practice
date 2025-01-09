@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import ArrowLeft from '../../assets/ArrowLeft.png';
 import SikaSäkissä from '../../assets/SikaSäkissä.webp';
 import useFetchProducts from '../../hooks/useFetchProducts';
-
+import ProfileIcon from '../../assets/ProfileIcon.svg'
 const ProfilePage = () => {
   const { UserData, id } = useFetchSingleUser(); // Fetch single user data
   const { loading, productData } = useFetchProducts(); // Fetch all products
@@ -15,7 +15,7 @@ const ProfilePage = () => {
     if (!UserData) return <p>User not found or you don't have the right to view this profile.</p>;
 
     return (
-      <div className='product-box'>
+      <div className='user-box'>
         <div className='product-details'>
           <p className="product-name"><strong>Name:</strong> {UserData.name}</p>
           <p><strong>Email:</strong> {UserData.email || 'Not provided'}</p>
@@ -23,7 +23,9 @@ const ProfilePage = () => {
           <p><strong>Alternative Contact:</strong> {UserData.alternativeContact || 'Not provided'}</p>
           <p><strong>Created At:</strong> {new Date(UserData.createdAt).toLocaleString()}</p>
           <p><strong>Updated At:</strong> {new Date(UserData.updatedAt).toLocaleString()}</p>
+          <p><strong>Role:</strong> {UserData.role || 'Not provided'}</p>
         </div>
+        <img className='profile-picture' alt='profile-picture' src={ProfileIcon}/>
       </div>
     );
   };
@@ -52,7 +54,7 @@ const ProfilePage = () => {
     }
 
     return userProducts.map((product) => (
-    <div className='product-grid'>
+    <div className=''>
       <div key={product._id} className="product-box">
         <img
           className="product-image"
@@ -84,15 +86,15 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className='product-container'>
+    <div className='profile-grid'>
       <h1>Details for User ID: {id}</h1>
-      <div className='detail-grid'>
+      <div className='profile-product-grid'>
         <Link className='back-catalogue' to={`/`}>
           <img className='back-arrow icon' src={ArrowLeft} width={60} height={60} />
         </Link>
         {renderUserInformation()}
-        <p>Your Products</p>
-        <div className="product-container">{renderUserProducts()}</div>
+        <h1>Your Products</h1>
+        <div className="user-products">{renderUserProducts()}</div>
       </div>
     </div>
   );

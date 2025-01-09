@@ -44,3 +44,37 @@
 .edit-plume:hover {
     transform: scale(1.1); /* Slightly enlarge the icon on hover */
 }
+.profile-grid{
+    display: grid;
+    grid-template-rows: 3;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay to enhance readability */
+}
+.profile-product-grid{
+    display: grid;
+    grid-template-columns: 4;
+}
+.user-products{
+    display: grid;
+    grid-template-columns:repeat(4, 1fr);
+}
+.user-box {
+    display: relative !important;
+    background-color: hsl(207, 26%, 17%);
+    color: antiquewhite;
+    padding: 1.5em;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    transition: transform 0.3s ease;
+    min-width: 600px;
+    min-height: 300px;
+    align-items: right;
+
+}
+.profile-picture{
+    max-width: 150px;
+    max-height: 150px;
+}
