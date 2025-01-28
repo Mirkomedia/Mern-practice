@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../Styles/ChatPage.css';
 import useFetchSession from '../../hooks/useFetchSession';
 
-const socket = io('http://localhost:5000' || 'https://mern-practice-0lqg.onrender.com'); // Update with your backend URL
+const socket = io('https://mern-practice-0lqg.onrender.com'); // Update with your backend URL
 
 const ChatPage = () => {
   const {  currentUser} = useFetchSession();
