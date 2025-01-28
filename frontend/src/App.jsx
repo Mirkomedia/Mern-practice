@@ -11,6 +11,7 @@ import PalautePage from './components/Pages/PalautePage';
 import useFetchSession from './hooks/useFetchSession';
 import ChatPage from './components/Pages/ChatPage';
 import MessagesPage from './components/Pages/MessagesPage'
+import EditProfilePage from './components/Pages/EditProfilePage'
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path ="/create/user" element={<CreateUserPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path ='/details/:id' element={<DetailsPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path ='/profile/:id' element={<ProfilePage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
+        <Route path ='/profile/edit/:id' element={<EditProfilePage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path ='/edit/:id' element={<EditPage  loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} />} />
         <Route path ='/chat/:userId' element ={<MessagesPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser}/>}/>
         <Route path ='/chat/:userId1/:userId2' element ={<ChatPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser}/>}/>

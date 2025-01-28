@@ -6,6 +6,7 @@ import ArrowLeft from '../../assets/ArrowLeft.png';
 import SikaSäkissä from '../../assets/SikaSäkissä.webp';
 import useFetchProducts from '../../hooks/useFetchProducts';
 import ProfileIcon from '../../assets/ProfileIcon.svg'
+import EditPlume from '../../assets/EditPlume.svg'
 const ProfilePage = () => {
   const { UserData, id } = useFetchSingleUser(); // Fetch single user data
   const { loading, productData } = useFetchProducts(); // Fetch all products
@@ -16,6 +17,7 @@ const ProfilePage = () => {
 
     return (
       <div className='user-box'>
+         <img className='profile-picture' alt='profile-picture' src={ProfileIcon}/>
         <div className='product-details'>
           <p className="product-name"><strong>Name:</strong> {UserData.name}</p>
           <p><strong>Email:</strong> {UserData.email || 'Not provided'}</p>
@@ -24,8 +26,22 @@ const ProfilePage = () => {
           <p><strong>Created At:</strong> {new Date(UserData.createdAt).toLocaleString()}</p>
           <p><strong>Updated At:</strong> {new Date(UserData.updatedAt).toLocaleString()}</p>
           <p><strong>Role:</strong> {UserData.role || 'Not provided'}</p>
+          <p><strong>Description:</strong></p>
         </div>
-        <img className='profile-picture' alt='profile-picture' src={ProfileIcon}/>
+        <div className='useless-wrapper'>
+        <div className='icon-container'>
+        <Link to={`/profile/edit/${id}`}>
+                     <img
+                        className="edit-plume"
+                        src={EditPlume}
+                        alt="editIcon"
+                        height={24}
+                        width={24}
+                     />
+                     Edit
+                  </Link>
+          </div>
+          </div>
       </div>
     );
   };

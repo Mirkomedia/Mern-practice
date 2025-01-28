@@ -61,7 +61,8 @@
     grid-template-columns:repeat(4, 1fr);
 }
 .user-box {
-    display: relative !important;
+    display: grid ;
+    grid-template-columns: 1fr 3fr;
     background-color: hsl(207, 26%, 17%);
     color: antiquewhite;
     padding: 1.5em;
@@ -77,4 +78,7 @@
 .profile-picture{
     max-width: 150px;
     max-height: 150px;
+}
+.useless-wrapper{
+    position: relative;
 }

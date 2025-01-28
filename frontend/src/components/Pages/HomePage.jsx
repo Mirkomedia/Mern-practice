@@ -59,7 +59,7 @@ const HomePage = ({ setLoggedIn, loggedIn, currentUser, setCurrentUser } ) => {
          <InsiteLink 
          name= {loggedIn === false ? 'Login' : 'View profile'}
          image={ProfileIcon}
-         linkTo={loggedIn === false ? '/login' : `/profile/${currentUser._id}`}
+         linkTo={loggedIn === false ? '/login' : `/profile/${currentUser?._id}`}
          />
         {loggedIn === true && <LogoutButton setCurrentUser={setCurrentUser} setLoggedIn={setLoggedIn}/>}
          <InsiteLink
