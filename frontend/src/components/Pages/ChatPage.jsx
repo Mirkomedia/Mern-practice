@@ -96,14 +96,15 @@ const ChatPage = () => {
 
   const handleSendMessage = () => {
     if (newMessage.trim() && userId1 && userId2) {
-      const recipient = [userId1, userId2].filter(!currentUserId)
+      const recipient = [userId1, userId2].filter((id) => id !== currentUserId)[0];
+      
       // Optimistically update the messages state
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: currentUserId, recipient: recipient, message: newMessage, timestamp: new Date() },
+        { sender: currentUserId, recipient, message: newMessage, timestamp: new Date() },
       ]);
       setNewMessage('');
-
+  
       // Send message to backend
       axios.post(`/api/messages/${userId1}/${userId2}`, { message: newMessage })
         .then((response) => {
@@ -115,6 +116,7 @@ const ChatPage = () => {
         });
     }
   };
+  
 
   if (loading) {
     return <p>Loading...</p>;
