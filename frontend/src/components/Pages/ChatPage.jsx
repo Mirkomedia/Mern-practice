@@ -15,9 +15,10 @@ const ChatPage = () => {
   const [error, setError] = useState(null); // For storing error messages
   const [chat, setChat] = useState(null);
   const [loading, setLoading] = useState(true); // For controlling loading state
-  const currentUserId = currentUser?._id; // Assuming `userId1` is the current user
+  const currentUserId = currentUser?._id || "unknown-user";;  
 
-
+  console.log("currentUserId:", currentUserId);
+  console.log("messages:", messages);
   // Fetch or create chat
   useEffect(() => {
     const fetchOrCreateChat = async () => {
